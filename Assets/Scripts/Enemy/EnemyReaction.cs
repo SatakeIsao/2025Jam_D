@@ -31,6 +31,9 @@ public class EnemyReaction : MonoBehaviour
     /// </summary>
     void JudgeDeath()
     {
-        if(enemyStatus.)
+        if (enemyStatus)
+        {
+
+        }
     }
 }
