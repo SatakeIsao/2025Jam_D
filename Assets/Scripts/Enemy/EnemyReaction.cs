@@ -6,8 +6,6 @@ using UnityEngine;
 public class EnemyReaction : MonoBehaviour
 {
     EnemyStatus enemyStatus; // 敵のステータス
-    public GameObject m_player;
-    Collision collision;
 
 
     // Start is called before the first frame update
@@ -19,18 +17,17 @@ public class EnemyReaction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //OnCollisionEnter(Collision collision);
         JudgeDeath();
     }
 
     /// <summary>
     /// プレイヤーの攻撃にヒットしたか
     /// </summary>
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
-        if(other.name == "Circle") {
-            enemyStatus.ApplyDamage(100); // プレイヤーの攻撃が当たったらダメージを与える
+        if (other.name == "Circle") {
+            enemyStatus.ApplyDamage(200); // プレイヤーの攻撃が当たったらダメージを与える
         }
     }
 
