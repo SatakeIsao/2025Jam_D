@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemyReaction : MonoBehaviour
 {
-    EnemyStatus enemyStatus; // “G‚ÌƒXƒe[ƒ^ƒX
+    EnemyStatus enemyStatus; // æ•µã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
     public GameObject m_player;
     Collision collision;
 
@@ -24,18 +24,18 @@ public class EnemyReaction : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌUŒ‚‚Éƒqƒbƒg‚µ‚½‚©
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒã«ãƒ’ãƒƒãƒˆã—ãŸã‹
     /// </summary>
     void OnCollisionEnter(Collision collision)
     {
         GameObject other = collision.gameObject;
         if(other.name == "Circle") {
-            enemyStatus.ApplyDamage(100); // ƒvƒŒƒCƒ„[‚ÌUŒ‚‚ª“–‚½‚Á‚½‚çƒ_ƒ[ƒW‚ğ—^‚¦‚é
+            enemyStatus.ApplyDamage(100); // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒãŒå½“ãŸã£ãŸã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
         }
     }
 
     /// <summary>
-    /// €–S”»’è
+    /// æ­»äº¡åˆ¤å®š
     /// </summary>
     void JudgeDeath()
     {
