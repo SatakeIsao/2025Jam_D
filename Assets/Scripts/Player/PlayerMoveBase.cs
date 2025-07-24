@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
-public class BallMove : MonoBehaviour
+public class PlayerMoveBase : MonoBehaviour
 {
     [SerializeField] private float m_moveSpeed = 100.0f;        //発射速度
     [SerializeField] private float m_adjustmentSpeed = 1.0f;    //調整用の速度係数
@@ -24,6 +24,7 @@ public class BallMove : MonoBehaviour
         m_moveSpeed = speed; //発射速度を設定。
     }
 
+    public
 
     void Start()
     {
@@ -81,8 +82,8 @@ public class BallMove : MonoBehaviour
         //タッチが終わった瞬間だったら。
         if (m_touchInput.IsTouchEnded())
         {
-                //タッチの終了位置から方向を取得して、力を加える。
-                AddForce(m_touchInput.GetSwipeEndedDirection());
+         //タッチの終了位置から方向を取得して、力を加える。
+         AddForce(m_touchInput.GetSwipeEndedDirection());
         }
 
         //マウスのドラッグが終わった瞬間だったら。
