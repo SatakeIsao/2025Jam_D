@@ -12,6 +12,23 @@ public class TouchInput : MonoBehaviour
     //タッチしている位置
     Vector2 movetTouchPosition= Vector2.zero;
 
+    //ボールの移動をロックするかどうかのフラグ
+    bool m_isFlickLock = false;
+
+    /// <summary>
+    /// ボールのロックを設定するメソッド。
+    /// </summary>
+    /// <param name="isLock"></param>
+    public void SetFlickLock(bool isLock)
+    {
+        m_isFlickLock = isLock; //ボールの移動をロックするかどうかを設定。
+    }
+
+    public bool IsFlickLock()
+    {         //ボールの移動がロックされているかどうかを返す。
+        return m_isFlickLock;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

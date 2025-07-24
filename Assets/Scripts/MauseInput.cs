@@ -9,6 +9,21 @@ public class MauseInput : MonoBehaviour
     private Vector2 m_dragStartPos = Vector2.zero;     //ドラッグ開始位置
     private Vector2 m_dragCurrentPos = Vector2.zero;   //ドラッグ中の現在位置
     private bool m_isDragging = false;  //ドラッグ中かどうか
+    bool m_isFlickLock = false; //ボールの移動をロックするかどうかのフラグ
+
+    public bool IsFlickLock()
+    {         //ボールの移動がロックされているかどうかを返す。
+        return m_isFlickLock;
+    }
+
+    /// <summary>
+    /// ボールのロックを設定するメソッド。
+    /// </summary>
+    /// <param name="isLock"></param>
+    public void SetFlickLock(bool isLock)
+    {
+        m_isFlickLock = isLock; //ボールの移動をロックするかどうかを設定。
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -17,25 +32,46 @@ public class MauseInput : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Update()
+    void Update()
     {
-        UpdateDragPosition();
+        //ロックがかかっていない場合はドラッグ位置を更新する。
+        if (!m_isFlickLock)
+        {
+            //マウスのドラッグ位置を更新
+            UpdateDragPosition();
+        }
+
     }
 
     public bool IsDragging()
     {
+        if (m_isFlickLock)
+        {
+            //ボールの移動がロックされている場合はドラッグ中ではない。
+            return false;
+        }
         //マウスの左ボタンが押されているかどうかを判定
         return Input.GetMouseButton(0);
     }
 
     public bool IsDragEnded()
     {
+        if (m_isFlickLock)
+        {
+            //ボールの移動がロックされている場合はドラッグ中ではない。
+            return false;
+        }
         //マウスの左ボタンが離されたかどうかを判定
         return Input.GetMouseButtonUp(0);
     }
 
     bool IsDragStarted()
     {
+        if (m_isFlickLock)
+        {
+            //ボールの移動がロックされている場合はドラッグ中ではない。
+            return false;
+        }
         //マウスの左ボタンが押された瞬間かどうかを判定
         return Input.GetMouseButtonDown(0);
     }

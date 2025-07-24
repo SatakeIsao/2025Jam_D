@@ -13,14 +13,17 @@ public class BallMove : MonoBehaviour
     private TouchInput m_touchInput;
     private MauseInput m_mouseInput;
 
-    
+   
 
-    
+
+
+
 
     public void SetMoveSpeed(float speed)
     {
         m_moveSpeed = speed; //発射速度を設定。
     }
+
 
     void Start()
     {
@@ -49,20 +52,54 @@ public class BallMove : MonoBehaviour
 
     }
 
+    void FlicLockManager()
+    {
+        //ロックがかかっていないとき。
+        if (!m_mouseInput.IsFlickLock())
+        {
+            if(m_mouseInput.IsDragEnded())
+            {
+                m_mouseInput.SetFlickLock(true);
+            }
+        }
+
+        if (!m_touchInput.IsFlickLock())
+        {
+            if (m_touchInput.IsTouchEnded())
+            {
+                //マウスのドラッグが終わったら、ロックをかける。
+                m_touchInput.SetFlickLock(true);
+            }
+        }
+
+
+    }
+
     void Update()
     {
+
         //タッチが終わった瞬間だったら。
         if (m_touchInput.IsTouchEnded())
         {
-            //タッチの終了位置から方向を取得して、力を加える。
-            AddForce(m_touchInput.GetSwipeEndedDirection());
+                //タッチの終了位置から方向を取得して、力を加える。
+                AddForce(m_touchInput.GetSwipeEndedDirection());
         }
 
         //マウスのドラッグが終わった瞬間だったら。
         if (m_mouseInput.IsDragEnded())
         {
-            //マウスのドラッグ終了位置から方向を取得して、力を加える。
-            AddForce(m_mouseInput.GetSwipeEndedDirection());
+          //マウスのドラッグ終了位置から方向を取得して、力を加える。
+          AddForce(m_mouseInput.GetSwipeEndedDirection());
         }
+
+        //ボールの移動速度がある程度低くなったらゼロにする。
+        if (m_rigidBody.velocity.magnitude <= 1.0f)
+        {
+            m_rigidBody.velocity = Vector2.zero;
+        }
+
+        //ロックの管理を行う。
+        FlicLockManager();
+
     }
 }
