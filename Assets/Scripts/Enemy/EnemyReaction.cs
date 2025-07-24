@@ -1,39 +1,43 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyReaction : MonoBehaviour
 {
-    EnemyStatus enemyStatus; // “G‚ÌƒXƒe[ƒ^ƒX
+    EnemyStatus enemyStatus; // æ•µã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        enemyStatus = GetComponent<EnemyStatus>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        JudgeUnderAttack();
+        JudgeDeath();
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌUŒ‚‚Éƒqƒbƒg‚µ‚½‚©
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒã«ãƒ’ãƒƒãƒˆã—ãŸã‹
     /// </summary>
-    void JudgeUnderAttack()
+    void OnCollisionEnter2D(Collision2D collision)
     {
-
+        GameObject other = collision.gameObject;
+        if (other.tag == "Player") {
+            enemyStatus.ApplyDamage(200); // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒãŒå½“ãŸã£ãŸã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
+        }
     }
 
     /// <summary>
-    /// €–S
+    /// æ­»äº¡åˆ¤å®š
     /// </summary>
     void JudgeDeath()
     {
-        if (enemyStatus)
-        {
-
+        if (enemyStatus.HP <= 0) {
+            Destroy(gameObject);
         }
     }
 }
