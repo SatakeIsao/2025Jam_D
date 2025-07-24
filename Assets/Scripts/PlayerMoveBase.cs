@@ -4,61 +4,102 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 public class BallMove : MonoBehaviour
 {
-    [SerializeField]
-    protected float m_moveSpeed = 100.0f; //発射速度
-    [SerializeField]
-    protected float m_adjustmentSpeed = 1.0f; //調整用の速度係数
-    protected Rigidbody2D m_rigidBody;  //Rigidbody2Dへの参照
-    //マウスのドラッグ関連の変数
-    private Vector2 m_dragStartPos;     //ドラッグ開始位置
-    private Vector2 m_dragEndPos;       //ドラッグ終了位置
-    private bool m_isDragging = false;  //ドラッグ中かどうか
-    protected virtual void Awake()
+    [SerializeField] private float m_moveSpeed = 100.0f;        //発射速度
+    [SerializeField] private float m_adjustmentSpeed = 1.0f;    //調整用の速度係数
+    [SerializeField] private float m_drag;                      //空気抵抗
+    [SerializeField] private float m_angularDrag;               //回転に対する抵抗
+
+    private Rigidbody2D m_rigidBody;
+    private TouchInput m_touchInput;
+    private MauseInput m_mouseInput;
+
+   
+
+
+
+
+
+    public void SetMoveSpeed(float speed)
     {
-        m_rigidBody = GetComponent<Rigidbody2D>();
-        m_rigidBody.drag = 0.2f;        //空気抵抗
-        m_rigidBody.angularDrag = 1.0f;//回転に対する抵抗
+        m_moveSpeed = speed; //発射速度を設定。
     }
-    //マウスボタンが押された時の処理
-    private void OnMouseDown()
+
+
+    void Start()
     {
-        if (Input.GetMouseButtonDown(0)) //左ボタン
+        m_rigidBody = GetComponent<Rigidbody2D>(); //Rigidbody2Dの参照を取得。
+        m_touchInput = GetComponent<TouchInput>(); //タッチ入力の参照。
+        m_mouseInput = GetComponent<MauseInput>(); //マウス入力の参照。
+
+        m_rigidBody.drag=m_drag; //Rigidbody2Dのドラッグを取得。
+        m_rigidBody.angularDrag= m_angularDrag; //Rigidbody2Dの角度ドラッグを取得。
+    }
+
+    /// <summary>
+    /// スワイプの方向に力を加えるメソッド。
+    /// </summary>
+    /// <param name="swipeDirection">スワイプ方向</param>
+    void AddForce(Vector2 swipeDirection)
+    {
+        //スワイプ方向と逆の方向に飛んでいくようにする。
+        swipeDirection *= -1;
+
+        //スワイプ方向に力を加える。
+        m_rigidBody.AddForce(
+            swipeDirection * m_moveSpeed * m_adjustmentSpeed, 
+            ForceMode2D.Impulse
+            );
+
+    }
+
+    void FlicLockManager()
+    {
+        //ロックがかかっていないとき。
+        if (!m_mouseInput.IsFlickLock())
         {
-            m_isDragging = true;
-            //マウスのスクリーン座標をワールド空間に変換して保存
-            m_dragStartPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //ドラッグ開始時に現在の速度をリセット
-            if (m_rigidBody != null)
+            if(m_mouseInput.IsDragEnded())
             {
-                m_rigidBody.velocity = Vector2.zero;
-                m_rigidBody.angularVelocity = 0.0f; //回転もリセット
+                m_mouseInput.SetFlickLock(true);
             }
         }
-    }
-    //マウスボタンが押されている間の処理
-    void OnMouseDrag()
-    {
-        if (m_isDragging
-&& Input.GetMouseButton(0)) //ドラッグ中で左ボタン押されている間
+
+        if (!m_touchInput.IsFlickLock())
         {
-            //現在のマウスのワールド座標を更新
-            m_dragEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //引っ張っている方向のベクトル
-            Vector2 dragVector = m_dragStartPos - m_dragEndPos;
+            if (m_touchInput.IsTouchEnded())
+            {
+                //マウスのドラッグが終わったら、ロックをかける。
+                m_touchInput.SetFlickLock(true);
+            }
         }
+
+
     }
-    //マウスボタンが離された時の処理
-    private void OnMouseUp()
+
+    void Update()
     {
-        if (m_isDragging
-&& Input.GetMouseButtonUp(0))//ドラッグ中で左ボタンが離された瞬間
+
+        //タッチが終わった瞬間だったら。
+        if (m_touchInput.IsTouchEnded())
         {
-            m_isDragging = false;
-            m_dragEndPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            //マウスのドラッグ開始地点から終了地点までのベクトルを計算
-            Vector2 launchDirection = (m_dragStartPos - m_dragEndPos).normalized;   //向きを正規化
-            //引っ張る距離に関わらずに、固定の力で発射
-            m_rigidBody.AddForce(launchDirection * m_moveSpeed * m_adjustmentSpeed, ForceMode2D.Impulse);
+                //タッチの終了位置から方向を取得して、力を加える。
+                AddForce(m_touchInput.GetSwipeEndedDirection());
         }
+
+        //マウスのドラッグが終わった瞬間だったら。
+        if (m_mouseInput.IsDragEnded())
+        {
+          //マウスのドラッグ終了位置から方向を取得して、力を加える。
+          AddForce(m_mouseInput.GetSwipeEndedDirection());
+        }
+
+        //ボールの移動速度がある程度低くなったらゼロにする。
+        if (m_rigidBody.velocity.magnitude <= 1.0f)
+        {
+            m_rigidBody.velocity = Vector2.zero;
+        }
+
+        //ロックの管理を行う。
+        FlicLockManager();
+
     }
 }
