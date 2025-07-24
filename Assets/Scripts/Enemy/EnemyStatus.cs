@@ -15,11 +15,11 @@ enum EnEnemyType {
 public class EnemyStatus : MonoBehaviour
 {
     //HP
-    private int m_hp = 200;
+     private int m_HP = 0;
     //最大HP
-    private int m_maxHp = 200;
+    [SerializeField] private int m_maxHP = 0;
     // エネミーの種類
-    private EnEnemyType m_enemyType = EnEnemyType.enEmpty;
+    //[SerializeField] private EnEnemyType m_enemyType = EnEnemyType.enEmpty;
 
     /// <summary>
     /// ダメージを受ける
@@ -27,10 +27,10 @@ public class EnemyStatus : MonoBehaviour
     /// <param name="damage">ダメージ量</param>
     public void ApplyDamage(int damage)
     {
-        m_hp -= damage;
+        m_HP -= damage;
         //HPを0未満にしない
-        if (m_hp <= 0) {
-            m_hp = 0;
+        if (m_HP <= 0) {
+            m_HP = 0;
         }
     }
 
@@ -40,10 +40,10 @@ public class EnemyStatus : MonoBehaviour
     /// <param name="recovery">回復量</param>
     public void Heal(int recovery)
     {
-        m_hp += recovery;
+        m_HP += recovery;
         //HPを最大値を超えないようにする
-        if (m_hp > m_maxHp) {
-            m_hp = m_maxHp;
+        if (m_HP > m_maxHP) {
+            m_HP = m_maxHP;
         }
     }
 
@@ -54,7 +54,7 @@ public class EnemyStatus : MonoBehaviour
     {
         get
         {
-            return m_hp;
+            return m_HP;
         }
     }
 
@@ -73,7 +73,7 @@ public class EnemyStatus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        m_HP = m_maxHP; // 初期HPを最大HPに設定
     }
 
     /// Update is called once per frame
