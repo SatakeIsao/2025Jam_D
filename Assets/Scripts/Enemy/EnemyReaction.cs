@@ -26,7 +26,7 @@ public class EnemyReaction : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
-        if (other.name == "Circle") {
+        if (other.tag == "Player") {
             enemyStatus.ApplyDamage(200); // プレイヤーの攻撃が当たったらダメージを与える
         }
     }

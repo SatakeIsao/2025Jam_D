@@ -19,7 +19,7 @@ public class EnemyStatus : MonoBehaviour
     //最大HP
     [SerializeField] private int m_maxHP = 0;
     // エネミーの種類
-    private EnEnemyType m_enemyType = EnEnemyType.enEmpty;
+    //[SerializeField] private EnEnemyType m_enemyType = EnEnemyType.enEmpty;
 
     /// <summary>
     /// ダメージを受ける
