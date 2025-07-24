@@ -15,14 +15,13 @@ public class BallMove : MonoBehaviour
 
     
 
-    public:
+    
 
-        SetMoveSpeed(float speed)
+    public void SetMoveSpeed(float speed)
     {
         m_moveSpeed = speed; //発射速度を設定。
     }
 
-    private:
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody2D>(); //Rigidbody2Dの参照を取得。
