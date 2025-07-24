@@ -8,26 +8,29 @@ using UnityEngine;
 enum EnEnemyType {
     enSmall,
     enBoss,
+    enEmpty,
 }
 
 
 public class EnemyStatus : MonoBehaviour
 {
     //HP
-    int m_hp = 0;
+    private int m_hp = 200;
+    //最大HP
+    private int m_maxHp = 200;
     // エネミーの種類
-    EnEnemyType m_enemyType = 0;
+    private EnEnemyType m_enemyType = EnEnemyType.enEmpty;
 
     /// <summary>
     /// ダメージを受ける
     /// </summary>
     /// <param name="damage">ダメージ量</param>
-    void ApplyDamage(int damage)
+    public void ApplyDamage(int damage)
     {
         m_hp -= damage;
-        if (m_hp <= 0)
-        {
-            Destroy(gameObject);
+        //HPを0未満にしない
+        if (m_hp <= 0) {
+            m_hp = 0;
         }
     }
 
@@ -35,10 +38,24 @@ public class EnemyStatus : MonoBehaviour
     /// 体力を回復
     /// </summary>
     /// <param name="recovery">回復量</param>
-    void Heal(int recovery)
+    public void Heal(int recovery)
     {
         m_hp += recovery;
-        // HPの上限を設定する場合はここでチェック
+        //HPを最大値を超えないようにする
+        if (m_hp > m_maxHp) {
+            m_hp = m_maxHp;
+        }
+    }
+
+    /// <summary>
+    /// HPを取得
+    /// </summary>
+    public int HP
+    {
+        get
+        {
+            return m_hp;
+        }
     }
 
     /// <summary>
@@ -46,12 +63,12 @@ public class EnemyStatus : MonoBehaviour
     /// </summary>
     /// <param name="hp">初期HP</param>
     /// <param name="enemyType">エネミーの種類</param>
-    EnemyStatus(int hp, EnEnemyType enemyType)
-    {
-        m_hp = hp;
-        m_enemyType = enemyType;
-        SizeSetting(m_enemyType);
-    }
+    //EnemyStatus(int hp, EnEnemyType enemyType)
+    //{
+    //    m_hp = hp;
+    //    m_enemyType = enemyType;
+    //    SizeSetting(m_enemyType);
+    //}
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +79,7 @@ public class EnemyStatus : MonoBehaviour
     /// Update is called once per frame
     void Update()
     {
-        
+
     }
 
     /// <summary>
