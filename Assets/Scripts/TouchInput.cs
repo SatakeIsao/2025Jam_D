@@ -35,10 +35,10 @@ public class TouchInput : MonoBehaviour
     }
 
     /// <summary>
-    /// タッチが終わったかを判定するメソッド。
+    /// タッチが終わった瞬間かどうかを判定するメソッド。
     /// </summary>
     /// <returns></returns>
-    bool IsTouchEnded()
+    public bool IsTouchEnded()
     {
         return Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended;
     }
@@ -88,12 +88,19 @@ public class TouchInput : MonoBehaviour
             //スワイプの方向を返す。
             return swipeDirectionVector;
         }
+        else
+        {     
+            //タッチされていない場合はゼロベクトルを返す。
+            return Vector2.zero;
 
-        //タッチされていない場合はゼロベクトルを返す。
-        return Vector2.zero;
+        }
     }
 
-    Vector2 GetSwipeEndedDirection()
+    /// <summary>
+    /// タッチでスワイプが終わった方向を取得するメソッド。
+    /// </summary>
+    /// <returns></returns>
+    public Vector2 GetSwipeEndedDirection()
     {
         //タッチが終わった瞬間かどうかを判定。
         if (IsTouchEnded())
@@ -110,16 +117,19 @@ public class TouchInput : MonoBehaviour
             //スワイプの方向を返す。
             return swipeEndedDirectionVector;
         }
+        else
+        {
+            //タッチが終わっていない場合はゼロベクトルを返す。
+            return Vector2.zero;
+        }
 
-        //タッチが終わっていない場合はゼロベクトルを返す。
-        return Vector2.zero;
     }
 
     /// <summary>
     /// スワイプの距離を取得するメソッド。
     /// </summary>
     /// <returns></returns>
-    float GetSwipeDistance()
+    public float GetSwipeDistance()
     {
         //タッチされているかどうかを判定。
         if (IsTouching())
@@ -130,8 +140,11 @@ public class TouchInput : MonoBehaviour
             //スワイプの距離を返す。
             return swipeDistance;
         }
+        else
+        {
+            //タッチされていない場合はゼロを返す。
+            return 0.0f;
 
-        //タッチされていない場合はゼロを返す。
-        return 0.0f;
+        }
     }
 }
