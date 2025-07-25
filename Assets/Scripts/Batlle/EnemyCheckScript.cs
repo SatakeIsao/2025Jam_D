@@ -34,6 +34,10 @@ public class EnemyCheckScript : MonoBehaviour
             gameClearFlag = true; // ゲームクリアフラグを立てる
             Debug.Log("ゲームクリア");
         }
+        if (EnemyNum > 0)
+        {
+            gameClearFlag = false;
+        }
     }
 
     // Update is called once per frame
