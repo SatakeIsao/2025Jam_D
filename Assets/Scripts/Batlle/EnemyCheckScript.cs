@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class EnemyCheckScript : MonoBehaviour
 {
+    public static EnemyCheckScript m_instance; 
+
     GameObject[] enemyObjects;
     int EnemyNum;   //残りの敵の数
 
     public bool gameClearFlag = false; //ゲームクリアフラグ
 
+    void Awake()
+    {
+        if(m_instance == null)
+        {
+            m_instance = this;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
