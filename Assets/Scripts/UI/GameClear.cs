@@ -18,15 +18,17 @@ public class GameClear : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab))
-        {
-            Invoke(nameof(LongPush), m_longPushDown);
-        }
-        else if(Input.GetKeyUp(KeyCode.Tab) && IsInvoking(nameof(LongPush)))
-        {
-            CancelInvoke(nameof(LongPush));
-            m_canvas.enabled = false; // キーを離したらキャンバスを非表示にする
-        }
+        m_canvas.enabled = EnemyCheckScript.m_instance.gameClearFlag;
+        //デバッグ用
+        //if(Input.GetKeyDown(KeyCode.Tab))
+        //{
+        //    Invoke(nameof(LongPush), m_longPushDown);
+        //}
+        //else if(Input.GetKeyUp(KeyCode.Tab) && IsInvoking(nameof(LongPush)))
+        //{
+        //    CancelInvoke(nameof(LongPush));
+        //    m_canvas.enabled = false; // キーを離したらキャンバスを非表示にする
+        //}
     }
 
     void LongPush()
