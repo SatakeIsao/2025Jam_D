@@ -243,6 +243,7 @@ MonoBehaviour:
   m_healImage: {fileID: 2000633733}
   m_maxHP: 100
   m_minHP: 0
+  m_isHpZero: 0
 --- !u!1 &124597177
 GameObject:
   m_ObjectHideFlags: 0
