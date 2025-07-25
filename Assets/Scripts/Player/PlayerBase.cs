@@ -4,9 +4,10 @@ using UnityEngine;
 
 public enum PlayerState
 {
-    PlayerTurn, // プレイヤーのターン
-    EnemyTurn,  // 敵のターン
-    GameOver,   // ゲームオーバー
+    enLocalPlayerTurn,    // 自分のターン
+    enOtherPlayerTurn,    // 別プレイヤーのターン
+    enEnemyTurn,  // 敵のターン
+    enGameOver,   // ゲームオーバー
 }
 
 [System.Serializable]
@@ -40,14 +41,17 @@ public class PlayerBase : MonoBehaviour
         IPlayerState newState = null;
         switch (playerState)
         {
-            case PlayerState.PlayerTurn:
+            case PlayerState.enLocalPlayerTurn:
                 newState=new PlayerPlayerTurnState();
                 break;
-            case PlayerState.EnemyTurn:
-                //newState=new PlayerEnemyTurnState();
+            case PlayerState.enOtherPlayerTurn:
+                newState = new PlayerEnemyTurnState();
                 break;
-            case PlayerState.GameOver:
-                //newState=new PlayerGameOverState();
+            case PlayerState.enGameOver:
+                newState = new PlayerGameOverState();
+                break;
+            case PlayerState.enEnemyTurn:
+                newState = new PlayerOtherPlayerTurnState();
                 break;
             default:
                 break;
