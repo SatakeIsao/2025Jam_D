@@ -17,11 +17,12 @@ enum EnChargeTarget
 public class EnemyCharge : MonoBehaviour
 {
     EnemyStatus enemyStatus;
+    CircleCollider2D m_chargeAttackCollider;
 
     //ダメージ（毎フレーム）
     [SerializeField] private float m_chargeDamage = 0.0f;
     //攻撃ターン数
-    [SerializeField] private int TURN_NUM = 0;
+    [SerializeField] private int m_turnNum = 0;
     //現在の残りターン数
     private int m_restTurnNum = 0;
     //ウェイポイントの位置（縦）
@@ -79,6 +80,10 @@ public class EnemyCharge : MonoBehaviour
     void Start()
     {
         enemyStatus = GetComponent<EnemyStatus>();
+        //突進攻撃用のコライダーを追加
+        gameObject.AddComponent<CircleCollider2D>();
+        m_chargeAttackCollider = GetComponent<CircleCollider2D>();
+        m_chargeAttackCollider.radius = 1.2f;
 
         m_chargeTarget = EnChargeTarget.enToWayPoint; //突進の目標位置をウェイポイントへ設定
     }
@@ -95,12 +100,15 @@ public class EnemyCharge : MonoBehaviour
             CalcMoveAmount(); //一度の突進で動く距離を計算
         }
 
-
         m_currentStopTime += Time.deltaTime; //現在の停止時間を更新
         if (m_currentStopTime < STOP_TIME)
         {
+            m_chargeAttackCollider.enabled = true;
+
             return; //停止時間が経過していないので、突進しない
         }
+
+        m_chargeAttackCollider.enabled = false;
 
         if (m_restMoveNum > 0)
         {
@@ -156,7 +164,7 @@ public class EnemyCharge : MonoBehaviour
     private void TurnEnd()
     {
         m_isInAction = false; //突進が終了
-        m_restTurnNum = TURN_NUM; //残りのターン数をリセット
+        m_restTurnNum = m_turnNum; //残りのターン数をリセット
 
         //突進目標位置を変える
         if (m_chargeTarget == EnChargeTarget.enToWayPoint)
