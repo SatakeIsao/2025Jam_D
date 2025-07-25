@@ -16,8 +16,21 @@ public class PlayerMoveBase : MonoBehaviour
    
 
 
-
-
+    /// <summary>
+    /// 今止まっているかどうか？
+    /// </summary>
+    /// <returns></returns>
+    public bool GetIsStop()
+    {
+        if (m_rigidBody.velocity.magnitude<= 0)
+        {
+            return true; //ボールの速度が0以下ならtrueを返す。
+        }
+        else
+        {
+            return false; //ボールの速度が0より大きいならfalseを返す。
+        }
+    }
 
     public void SetMoveSpeed(float speed)
     {
