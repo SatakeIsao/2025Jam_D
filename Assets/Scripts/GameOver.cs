@@ -4,27 +4,20 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    HPManager m_hpManager;
-    Renderer m_render;
+    private Canvas m_canvas;
+    public GameObject GameOverUIObj;
+    
     // Start is called before the first frame update
     void Start()
     {
-        //m_render.enabled = false;
-        //gameObject.SetActive(false);
+        m_canvas = GameOverUIObj.GetComponent<Canvas>();
+        m_canvas.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            Destroy(gameObject);
-           // m_render.enabled = true;
-        }
-        //if (m_hpManager.m_isHpZero==true)
-        //{
-         //   gameObject.SetActive(true);
-        //}
-        
+        m_canvas.enabled = HPManager.m_instance.m_isHpZero;
+
     }
 }
