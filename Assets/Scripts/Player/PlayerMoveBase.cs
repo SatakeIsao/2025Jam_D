@@ -24,9 +24,7 @@ public class PlayerMoveBase : MonoBehaviour
         m_moveSpeed = speed; //発射速度を設定。
     }
 
-    public
-
-    void Start()
+    void Awake()
     {
         m_rigidBody = GetComponent<Rigidbody2D>(); //Rigidbody2Dの参照を取得。
         m_touchInput = GetComponent<TouchInput>(); //タッチ入力の参照。
