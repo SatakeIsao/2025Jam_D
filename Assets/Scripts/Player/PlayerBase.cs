@@ -9,6 +9,15 @@ public enum PlayerState
     GameOver,   // ゲームオーバー
 }
 
+[System.Serializable]
+public struct Palamata
+{
+    [SerializeField] public float speed;
+    [SerializeField] public float hp;
+    [SerializeField] public int attack;
+    [SerializeField] public float defence;
+}
+
 public class PlayerBase : MonoBehaviour
 {
     IPlayerState currentState;
@@ -17,15 +26,10 @@ public class PlayerBase : MonoBehaviour
     public MauseInput m_mauseInput;
 
 
-    public struct Palamata
-    {
-        public float speed;
-        public float hp;
-        public int attack ;
-        public float defence;
-    }
 
-    private Palamata m_palamata;
+
+
+    [SerializeField] private Palamata m_palamata;
 
     /// <summary>
     /// プレイヤーの状態を変更するメソッド。
@@ -96,6 +100,8 @@ public class PlayerBase : MonoBehaviour
         m_playerMoveBase =GetComponent<PlayerMoveBase>();
         m_touchInput = GetComponent<TouchInput>();
         m_mauseInput = GetComponent<MauseInput>();
+
+        ApplySpead();
     }
 
     /// <summary>
