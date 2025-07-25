@@ -4,9 +4,10 @@ using UnityEngine;
 
 public enum PlayerState
 {
-    PlayerTurn, // プレイヤーのターン
-    EnemyTurn,  // 敵のターン
-    GameOver,   // ゲームオーバー
+    enLocalPlayer,    // 自分のターン
+    enOtherPlayer,    // 別プレイヤーのターン
+    enEnemyTurn,  // 敵のターン
+    enGameOver,   // ゲームオーバー
 }
 
 [System.Serializable]
