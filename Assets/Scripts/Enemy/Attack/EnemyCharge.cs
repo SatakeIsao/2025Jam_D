@@ -21,6 +21,8 @@ public class EnemyCharge : MonoBehaviour
 
     //ダメージ（毎フレーム）
     [SerializeField] private float m_chargeDamage = 0.0f;
+    //攻撃範囲
+    [SerializeField] private float m_attackRange = 0.0f;
     //攻撃ターン数
     [SerializeField] private int m_turnNum = 0;
     //現在の残りターン数
@@ -83,7 +85,7 @@ public class EnemyCharge : MonoBehaviour
         //突進攻撃用のコライダーを追加
         gameObject.AddComponent<CircleCollider2D>();
         m_chargeAttackCollider = GetComponent<CircleCollider2D>();
-        m_chargeAttackCollider.radius = 1.2f;
+        m_chargeAttackCollider.radius = m_attackRange;
 
         m_chargeTarget = EnChargeTarget.enToWayPoint; //突進の目標位置をウェイポイントへ設定
     }
@@ -92,13 +94,13 @@ public class EnemyCharge : MonoBehaviour
     void Update()
     {
         //debug
-        if (!m_isInAction)
-        {
-            m_isInAction = true; //行動終了フラグをリセット
-            m_currentStopTime = 0.0f; //停止時間をリセット
-            m_moveVecMemory = Vector2.zero; //移動したベクトルをリセット
-            CalcMoveAmount(); //一度の突進で動く距離を計算
-        }
+        //if (!m_isInAction)
+        //{
+        //    m_isInAction = true; //行動終了フラグをリセット
+        //    m_currentStopTime = 0.0f; //停止時間をリセット
+        //    m_moveVecMemory = Vector2.zero; //移動したベクトルをリセット
+        //    CalcMoveAmount(); //一度の突進で動く距離を計算
+        //}
 
         m_currentStopTime += Time.deltaTime; //現在の停止時間を更新
         if (m_currentStopTime < STOP_TIME)
