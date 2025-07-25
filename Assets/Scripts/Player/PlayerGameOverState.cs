@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEnemyTurnState : PlayerStateBase
+public class PlayerGameOverState : PlayerStateBase
 {
     public override void Enter(PlayerBase player)
     {
