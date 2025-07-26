@@ -7,7 +7,7 @@ public class EnemyTurnTextScript : MonoBehaviour
 {
     public TextMeshProUGUI EnemyTurnText;
 
-    public PlayerMoveBase playerMoveBase; // プレイヤーの移動スクリプトを参照するための変数
+    public PlayerMoveBase playerMoveBase; // プレイヤーの移動を管理するスクリプトを参照するための変数
 
     public PlayerTurnTextScript playerTurnTextScript; // プレイヤーのターンテキストスクリプトを参照するための変数
 

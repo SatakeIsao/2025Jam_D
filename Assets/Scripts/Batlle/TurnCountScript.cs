@@ -10,7 +10,7 @@ public class TurnCountScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+
     }
 
     // ターン数を増やすメソッド
@@ -28,8 +28,9 @@ public class TurnCountScript : MonoBehaviour
             Debug.Log(" 敵が攻撃してくるまで残りターン数:" + EnemyTurnCount);
         }
 
-        if(EnemyTurnCount==0)
+        if (EnemyTurnCount <= 0)
         {
+            EnemyTurnCount = 0;
             enemyAttackTimer -= Time.deltaTime; // タイマーを減少させる
             if (enemyAttackTimer <= 0.0f) // タイマーが0以下になったら
             {
@@ -42,6 +43,6 @@ public class TurnCountScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       Turn();
+        Turn();
     }
 }
