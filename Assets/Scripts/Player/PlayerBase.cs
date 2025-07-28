@@ -65,7 +65,7 @@ public class PlayerBase : MonoBehaviour
         currentState = newState;
 
         // V‚µ‚¢ó‘Ô‚ÌEnterŒÄ‚Ô
-        currentState.Enter(this);
+        currentState.Enter(this.gameObject);
     }
 
     public Palamata GetPalamata()
@@ -100,7 +100,8 @@ public class PlayerBase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentState = new PlayerPlayerTurnState(); // ‰Šúó‘Ô‚ğİ’è
+        ChangeState(PlayerState.enLocalPlayerTurn);
+        //currentState = new PlayerPlayerTurnState(); // ‰Šúó‘Ô‚ğİ’è
         m_playerMoveBase =GetComponent<PlayerMoveBase>();
         m_touchInput = GetComponent<TouchInput>();
         m_mauseInput = GetComponent<MauseInput>();

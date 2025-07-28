@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MauseInput : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class MauseInput : MonoBehaviour
     private Vector2 m_dragCurrentPos = Vector2.zero;   //ドラッグ中の現在位置
     private bool m_isDragging = false;  //ドラッグ中かどうか
     bool m_isFlickLock = false; //ボールの移動をロックするかどうかのフラグ
+    public event Action OnDragEnded;
+
 
     public bool IsFlickLock()
     {         //ボールの移動がロックされているかどうかを返す。
@@ -41,6 +44,10 @@ public class MauseInput : MonoBehaviour
             UpdateDragPosition();
         }
 
+        if (HasJustReleased())
+        {
+            OnDragEnded?.Invoke();
+        }
     }
 
     public bool IsDragging()
@@ -54,7 +61,11 @@ public class MauseInput : MonoBehaviour
         return Input.GetMouseButton(0);
     }
 
-    public bool IsDragEnded()
+    /// <summary>
+    /// 引っ張って手を離した瞬間かどうか？
+    /// </summary>
+    /// <returns></returns>
+    public bool HasJustReleased()
     {
         if (m_isFlickLock)
         {
@@ -130,7 +141,7 @@ public class MauseInput : MonoBehaviour
     public Vector2 GetSwipeEndedDirection()
     {
         //タッチが終わった瞬間かどうかを判定。
-        if (IsDragEnded())
+        if (HasJustReleased())
         {
             //スワイプの方向。
             Vector2 swipeEndedDirectionVector;

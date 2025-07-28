@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PlayerOtherPlayerTurnState : PlayerStateBase
 {
-    public override void Enter(PlayerBase player)
+    public override void Enter(GameObject gameObject)
     {
-        SetPlayerStateBase(player);
+        SetPlayerStateBase(gameObject);
+        SetComponents();
         // “ü—Í‚ðŽó‚¯•t‚¯‚é‚æ‚¤‚É‚·‚é
         m_player.SetIsInputRock(false);
     }
