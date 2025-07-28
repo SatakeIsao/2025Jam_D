@@ -553,7 +553,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1249108905
-  m_SortingLayer: 1
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1248,6 +1248,101 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 1}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &637908305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 637908310}
+  - component: {fileID: 637908309}
+  - component: {fileID: 637908308}
+  - component: {fileID: 637908307}
+  - component: {fileID: 637908306}
+  m_Layer: 0
+  m_Name: TurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &637908306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637908305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5595c53d77804e46b035c82722e38e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMoveBase: {fileID: 2030662865}
+  EnemyTurnCount: 3
+  EnemyTurn: 0
+  enemyAttackTimer: 2
+--- !u!114 &637908307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637908305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3696ebd17f8b5944ad07f8582986883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TurnText: {fileID: 1741660488}
+  PlayerTurnTimer: 3
+  playerTurnFlag: 1
+--- !u!114 &637908308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637908305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b438f203c92d4942884818b39416244, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &637908309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637908305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b34b7df1c276a647ab71c04f619b2af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyTurnText: {fileID: 1018162136}
+  playerMoveBase: {fileID: 1579135756}
+  playerTurnTextScript: {fileID: 637908307}
+  turnCountScript: {fileID: 637908306}
+  enemyTurnTimer: 2
+--- !u!4 &637908310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637908305}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8669769, y: -2.2238505, z: -1.3168265}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &679418713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,9 +1389,6 @@ GameObject:
   m_Component:
   - component: {fileID: 700799787}
   - component: {fileID: 700799786}
-  - component: {fileID: 700799789}
-  - component: {fileID: 700799788}
-  - component: {fileID: 700799790}
   - component: {fileID: 700799791}
   m_Layer: 0
   m_Name: GameManager
@@ -1332,52 +1424,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &700799788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700799785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b34b7df1c276a647ab71c04f619b2af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyTurnText: {fileID: 1018162136}
-  playerMoveBase: {fileID: 2030662865}
-  playerTurnTextScript: {fileID: 700799789}
-  turnCountScript: {fileID: 700799790}
-  enemyTurnTimer: 2
---- !u!114 &700799789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700799785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3696ebd17f8b5944ad07f8582986883, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TurnText: {fileID: 1741660488}
-  PlayerTurnTimer: 3
-  playerTurnFlag: 1
---- !u!114 &700799790
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 700799785}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5595c53d77804e46b035c82722e38e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyTurnCount: 3
-  enemyAttackTimer: 2
 --- !u!114 &700799791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2150,9 +2196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4c5421e1d4a284a86bec41736c195d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerMoveBase: {fileID: 0}
-  m_touchInput: {fileID: 0}
-  m_mauseInput: {fileID: 0}
+  m_playerMoveBase: {fileID: 1112133694}
+  m_touchInput: {fileID: 1112133691}
+  m_mauseInput: {fileID: 1112133692}
   m_palamata:
     speed: 300
     hp: 100
@@ -2339,6 +2385,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab940556a93b91047b1c565ca5653a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpManager: {fileID: 59677731}
+  playerBase: {fileID: 1112133690}
+  playerMoveBase: {fileID: 1112133694}
 --- !u!1 &1169761475
 GameObject:
   m_ObjectHideFlags: 0
@@ -2525,9 +2574,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4c5421e1d4a284a86bec41736c195d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerMoveBase: {fileID: 0}
-  m_touchInput: {fileID: 0}
-  m_mauseInput: {fileID: 0}
+  m_playerMoveBase: {fileID: 1374105323}
+  m_touchInput: {fileID: 1374105320}
+  m_mauseInput: {fileID: 1374105321}
   m_palamata:
     speed: 150
     hp: 100
@@ -2714,6 +2763,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab940556a93b91047b1c565ca5653a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpManager: {fileID: 59677731}
+  playerBase: {fileID: 1374105319}
+  playerMoveBase: {fileID: 1374105323}
 --- !u!1 &1388877568
 GameObject:
   m_ObjectHideFlags: 0
@@ -3149,9 +3201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4c5421e1d4a284a86bec41736c195d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerMoveBase: {fileID: 0}
-  m_touchInput: {fileID: 0}
-  m_mauseInput: {fileID: 0}
+  m_playerMoveBase: {fileID: 1579135756}
+  m_touchInput: {fileID: 1579135753}
+  m_mauseInput: {fileID: 1579135754}
   m_palamata:
     speed: 200
     hp: 100
@@ -3338,6 +3390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab940556a93b91047b1c565ca5653a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpManager: {fileID: 59677731}
+  playerBase: {fileID: 1579135752}
+  playerMoveBase: {fileID: 1579135756}
 --- !u!1 &1610492215
 GameObject:
   m_ObjectHideFlags: 0
@@ -3369,6 +3424,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab940556a93b91047b1c565ca5653a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpManager: {fileID: 0}
+  playerBase: {fileID: 0}
+  playerMoveBase: {fileID: 0}
 --- !u!212 &1610492217
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3408,7 +3466,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1249108905
-  m_SortingLayer: 1
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3527,7 +3585,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1389015139
-  m_SortingLayer: -1
+  m_SortingLayer: -2
   m_SortingOrder: -100
   m_Sprite: {fileID: 21300000, guid: 5836bb989eb513846ace84c322b499cf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4136,7 +4194,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1249108905
-  m_SortingLayer: 1
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -4613,9 +4671,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4c5421e1d4a284a86bec41736c195d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_playerMoveBase: {fileID: 0}
-  m_touchInput: {fileID: 0}
-  m_mauseInput: {fileID: 0}
+  m_playerMoveBase: {fileID: 2030662865}
+  m_touchInput: {fileID: 2030662869}
+  m_mauseInput: {fileID: 2030662868}
   m_palamata:
     speed: 200
     hp: 100
@@ -4633,6 +4691,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab940556a93b91047b1c565ca5653a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpManager: {fileID: 59677731}
+  playerBase: {fileID: 2030662870}
+  playerMoveBase: {fileID: 2030662865}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4648,12 +4709,13 @@ SceneRoots:
   - {fileID: 59677730}
   - {fileID: 2002432707}
   - {fileID: 2005587932}
-  - {fileID: 2030662864}
   - {fileID: 700799787}
+  - {fileID: 1579135759}
+  - {fileID: 2030662864}
   - {fileID: 1374105326}
   - {fileID: 1112133697}
-  - {fileID: 1579135759}
   - {fileID: 1701570679}
   - {fileID: 1016313982}
   - {fileID: 309276093}
   - {fileID: 608291699}
+  - {fileID: 637908310}
