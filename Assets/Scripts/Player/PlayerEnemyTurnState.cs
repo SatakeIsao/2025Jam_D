@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerEnemyTurnState : PlayerStateBase
 {
-    public override void Enter(PlayerBase player)
+    public override void Enter(GameObject gameObject)
     {
-        SetPlayerStateBase(player);
-        // “ü—Í‚ðŽó‚¯•t‚¯‚é‚æ‚¤‚É‚·‚é
-        m_player.SetIsInputRock(false);
+        SetPlayerStateBase(gameObject);
+        SetComponents();
+        // “ü—Í‚ðŽó‚¯•t‚¯‚È‚¢‚æ‚¤‚É‚·‚é
+        m_player.SetIsInputRock(true);
     }
 
     public override void Update()
