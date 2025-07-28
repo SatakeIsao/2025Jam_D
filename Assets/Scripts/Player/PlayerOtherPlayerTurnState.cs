@@ -11,7 +11,8 @@ public class PlayerOtherPlayerTurnState : PlayerStateBase
         SetComponents();
         // 入力を受け付け無いようにする
         m_player.SetIsInputRock(true);
-        m_playerMoveBase.SetDrag(800.0f);
+        // プレイヤーの移動を制限する
+        m_playerMoveBase.SetDrag(200.0f);
 
     }
 
