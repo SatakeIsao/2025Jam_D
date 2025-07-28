@@ -31,6 +31,13 @@ public class PlayerBase : MonoBehaviour
     [SerializeField] private Palamata m_palamata;
     public event Action <PlayerBase> OnDamaged;// ダメージを受けたときのイベント。
 
+    void Awake()
+    {
+        m_playerMoveBase = GetComponent<PlayerMoveBase>();
+        m_touchInput = GetComponent<TouchInput>();
+        m_mauseInput = GetComponent<MauseInput>();
+
+    }
 
     private void AddDamage(int damage)
     {
@@ -114,12 +121,11 @@ public class PlayerBase : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChangeState(PlayerState.enLocalPlayerTurn);
-        //currentState = new PlayerPlayerTurnState(); // 初期状態を設定
-        m_playerMoveBase =GetComponent<PlayerMoveBase>();
-        m_touchInput = GetComponent<TouchInput>();
-        m_mauseInput = GetComponent<MauseInput>();
 
+        //TODO:ターンマネージャーでプレイヤーのステート管理ができるようになったら消す。
+        ChangeState(PlayerState.enLocalPlayerTurn);
+
+        //ステータスのスピードを動きに反映。
         ApplySpead();
     }
 
