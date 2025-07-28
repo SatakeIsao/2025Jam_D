@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGameOverState : PlayerStateBase
+public class PlayerGameClearState : PlayerStateBase
 {
     public override void Enter(GameObject gameObject)
     {
@@ -14,7 +14,7 @@ public class PlayerGameOverState : PlayerStateBase
 
     public override void Update()
     {
-        m_playerMoveBase.GameOverMove();
+        m_playerMoveBase.GameClearMove();
     }
 
     public override void Exit()

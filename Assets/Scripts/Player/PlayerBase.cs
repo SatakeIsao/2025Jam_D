@@ -9,6 +9,7 @@ public enum PlayerState
     enOtherPlayerTurn,    // 別プレイヤーのターン
     enEnemyTurn,  // 敵のターン
     enGameOver,   // ゲームオーバー
+    enGameClear,  // ゲームクリア
 }
 
 [System.Serializable]
@@ -57,6 +58,9 @@ public class PlayerBase : MonoBehaviour
                 break;
             case PlayerState.enEnemyTurn:
                 newState = new PlayerOtherPlayerTurnState();
+                break;
+            case PlayerState.enGameClear:
+                newState = new PlayerGameClearState();
                 break;
             default:
                 break;
