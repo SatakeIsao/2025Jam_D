@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 弱点の位置
@@ -22,6 +23,7 @@ public class EnemyReaction : MonoBehaviour
     [SerializeField] private EnWeakPointPos weakPointPos = EnWeakPointPos.enEmpty;    
 
     EnemyStatus enemyStatus; // 敵のステータス
+
     WeakPoint weakPoint; // 弱点のスクリプト
     GameObject m_weakObject = null; // 弱点のオブジェクト    
 
@@ -32,6 +34,10 @@ public class EnemyReaction : MonoBehaviour
         { EnWeakPointPos.enRight,  new Vector2(1.0f, 0.0f) },
         { EnWeakPointPos.enEmpty,  new Vector2(0.0f, 0.0f) },
     };
+
+
+    public Image m_healImage; // HPバーのUI
+    public Canvas m_hpCanvas;
 
 
     // Start is called before the first frame update
@@ -55,6 +61,7 @@ public class EnemyReaction : MonoBehaviour
     void Update()
     {
         JudgeDeath();
+        UpdateHPUI();
     }
 
     /// <summary>
@@ -63,6 +70,7 @@ public class EnemyReaction : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
+
         if (other.tag == "Player")
         {
             if (weakPoint.IsHit)
@@ -79,6 +87,18 @@ public class EnemyReaction : MonoBehaviour
     }
 
 
+        if (other.tag == "Player") {
+            enemyStatus.ApplyDamage(200); // プレイヤーの攻撃が当たったらダメージを与える
+            
+        }
+    }
+
+    //HPバーの更新
+    private void UpdateHPUI()
+    {
+        m_healImage.fillAmount = (float)enemyStatus.HP / enemyStatus.m_maxHP;
+    }
+
     /// <summary>
     /// 死亡判定
     /// </summary>
@@ -86,6 +106,7 @@ public class EnemyReaction : MonoBehaviour
     {
         if (enemyStatus.HP <= 0) {
             Destroy(gameObject);
+            Destroy(m_hpCanvas.gameObject); // HPバーのUIも削除
         }
     }
 }
