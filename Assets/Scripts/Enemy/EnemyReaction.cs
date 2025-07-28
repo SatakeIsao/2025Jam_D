@@ -75,21 +75,14 @@ public class EnemyReaction : MonoBehaviour
         {
             if (weakPoint.IsHit)
             {
-                enemyStatus.ApplyDamage(5 * 2); // 弱点にヒットしているなら大ダメージを与える
+                enemyStatus.ApplyDamage(200 * 2); // 弱点にヒットしているなら大ダメージを与える
                 Debug.Log("2");
             }
             else
             {
-                enemyStatus.ApplyDamage(5); // 弱点にヒットしていないなら通常ダメージを与える
+                enemyStatus.ApplyDamage(200); // 弱点にヒットしていないなら通常ダメージを与える
                 Debug.Log("1");
             }
-        }
-    }
-
-
-        if (other.tag == "Player") {
-            enemyStatus.ApplyDamage(200); // プレイヤーの攻撃が当たったらダメージを与える
-            
         }
     }
 
