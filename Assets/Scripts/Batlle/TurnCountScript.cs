@@ -4,44 +4,44 @@ using UnityEngine;
 
 public class TurnCountScript : MonoBehaviour
 {
-    public int EnemyTurnCount = 3; // 敵のターン数を管理する変数
+    [SerializeField] private PlayerMoveBase playerMoveBase; // プレイヤーの移動スクリプトを参照するための変数
 
-    public float enemyAttackTimer = 2.0f; //仮置き 
+    public int EnemyTurnCount = 1; // 敵のターン数を管理する変数
+    public int EnemyTurn = 1; // 敵のターン数を表示する変数
+    public float enemyAttackTimer = 2.0f; //仮置き
+                                          //
     // Start is called before the first frame update
     void Start()
     {
-       
+
     }
 
     // ターン数を増やすメソッド
     void Turn()
     {
-        // Aキーが押されたらターン数を増やす
-        if (Input.GetKeyDown(KeyCode.A))
+        if (playerMoveBase.HasStoppedAfterPull())
         {
-            EnemyTurnCount--;
-        }
-
-        // スペースキーが押されたら現在ターン数の確認
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log(" 敵が攻撃してくるまで残りターン数:" + EnemyTurnCount);
-        }
-
-        if(EnemyTurnCount==0)
-        {
-            enemyAttackTimer -= Time.deltaTime; // タイマーを減少させる
-            if (enemyAttackTimer <= 0.0f) // タイマーが0以下になったら
+            // プレイヤーが移動を停止した場合、敵のターン数を減らす
+            EnemyTurn = Mathf.Max(EnemyTurn, 0); // 敵のターン数が0未満にならないようにする
+            EnemyTurn =EnemyTurnCount - 1; // 敵のターン数を減らす
+            EnemyTurn = EnemyTurnCount; // 敵のターン数を更新
+            if (EnemyTurn <= 0)
             {
-                enemyAttackTimer = 2.0f; // タイマーをリセット
-                EnemyTurnCount = 3; // ターン数をリセット
+                Debug.Log("敵のターンです。");
+                EnemyTurnCount = 1; // 敵のターン数をリセット
             }
+
+            else
+            {
+                Debug.Log("敵の攻撃まで後:" + EnemyTurn);
+            }
+
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-       Turn();
+        Turn();
     }
 }

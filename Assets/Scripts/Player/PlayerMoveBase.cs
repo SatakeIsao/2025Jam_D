@@ -4,7 +4,7 @@ using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 public class PlayerMoveBase : MonoBehaviour
 {
-    [SerializeField] private float m_moveSpeed = 100.0f;        //”­Ë‘¬“x
+    [SerializeField] public float  m_moveSpeed = 100.0f;        //”­Ë‘¬“x
     [SerializeField] private float m_adjustmentSpeed = 1.0f;    //’²®—p‚Ì‘¬“xŒW”
     [SerializeField] private float m_drag;                      //‹ó‹C’ïR
     [SerializeField] private float m_angularDrag;               //‰ñ“]‚É‘Î‚·‚é’ïR

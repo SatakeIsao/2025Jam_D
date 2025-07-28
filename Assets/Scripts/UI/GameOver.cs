@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
+    [SerializeField] private HPManager HPManager; // HPManagerのインスタンスを参照するための変数
+
     private Canvas m_canvas;
     private Animator m_anim;
     public GameObject GameOverUIObj;
