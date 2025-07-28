@@ -2945,7 +2945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b949b8735bb7e4383b58aee4fcb2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weakPointPos: 2
+  weakPointPos: 3
   m_healImage: {fileID: 994701108}
   m_hpCanvas: {fileID: 608291698}
 --- !u!61 &1388877571
@@ -3184,7 +3184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44b949b8735bb7e4383b58aee4fcb2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weakPointPos: 0
+  weakPointPos: 3
   m_healImage: {fileID: 29368747}
   m_hpCanvas: {fileID: 1016313981}
 --- !u!61 &1527479381
