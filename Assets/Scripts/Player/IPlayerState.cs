@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IPlayerState
 {
-    void Enter(PlayerBase player);
+    void Enter(GameObject gameObject);
     void Update();
     void Exit();
 }
