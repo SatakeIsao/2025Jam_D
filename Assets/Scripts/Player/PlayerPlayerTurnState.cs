@@ -7,6 +7,7 @@ public class PlayerPlayerTurnState : PlayerStateBase
     public override void Enter(GameObject gameObject)
     {
         Debug.Log("渡された gameObject = " + gameObject.name);
+        Debug.Log("プレイヤーのターンです");
         SetPlayerStateBase(gameObject);
         SetComponents();
         // 入力を受け付けるようにする

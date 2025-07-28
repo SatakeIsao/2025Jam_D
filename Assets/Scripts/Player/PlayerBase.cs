@@ -51,13 +51,13 @@ public class PlayerBase : MonoBehaviour
                 newState=new PlayerPlayerTurnState();
                 break;
             case PlayerState.enOtherPlayerTurn:
-                newState = new PlayerEnemyTurnState();
+                newState = new PlayerOtherPlayerTurnState();
                 break;
             case PlayerState.enGameOver:
                 newState = new PlayerGameOverState();
                 break;
             case PlayerState.enEnemyTurn:
-                newState = new PlayerOtherPlayerTurnState();
+                newState = new PlayerEnemyTurnState();
                 break;
             case PlayerState.enGameClear:
                 newState = new PlayerGameClearState();
