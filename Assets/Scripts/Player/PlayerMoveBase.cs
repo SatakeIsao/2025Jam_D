@@ -13,7 +13,50 @@ public class PlayerMoveBase : MonoBehaviour
     private TouchInput m_touchInput;
     private MauseInput m_mouseInput;
     bool m_hasPulled = false; //引っ張ったかどうかのフラグ
+    float m_jumpTime = 0.0f; //ジャンプの時間を管理する変数
+    float m_gameOverMoveTime = 0.0f; //ゲームオーバー時のジャンプ時間を管理する変数。
+    bool IsStartJump = true;
+    bool IsStartGameOverMove = true; //ゲームオーバー時の動きが開始されたかどうかのフラグ。
+    Vector3 m_startJumpPos;
+    Vector3 m_startGameOverPos; //ゲームオーバー時の開始位置。
 
+    public void SetDrag(float dorag)
+    {
+        m_rigidBody.drag = dorag; //Rigidbody2Dのドラッグを更新。
+    }
+
+    public void GameClearMove()
+    {
+        if (!IsStartJump) {
+            m_startJumpPos = transform.position;
+            IsStartJump = false;
+        }
+       
+
+       m_jumpTime+= 1.0f; //ジャンプの時間を更新。
+        transform.position = new Vector3(transform.position.x, m_startJumpPos.y+ Mathf.Abs(Mathf.Sin(m_jumpTime*0.02f)), transform.position.z);
+    }
+
+    public void GameOverMove()
+    {
+        //ゲームオーバー時の動き。
+        if (!IsStartGameOverMove)
+        {
+            m_startGameOverPos = transform.position;
+            IsStartGameOverMove = false;
+        }
+
+        m_gameOverMoveTime += 1.0f; //ジャンプの時間を更新。
+        if(m_gameOverMoveTime * 0.02f <= 3.141592f)
+        {
+            transform.position = new Vector3(transform.position.x, m_startJumpPos.y + (Mathf.Sin(m_gameOverMoveTime * 0.02f) * 1.5f), transform.position.z);
+        }
+    }
+
+    public float GedMenbaDrag()
+    {
+        return m_drag; //Rigidbody2Dのドラッグを取得。
+    }
     /// <summary>
     /// 引っ張った後に止まったかどうか？
     /// </summary>
@@ -119,7 +162,6 @@ public class PlayerMoveBase : MonoBehaviour
 
     void Update()
     {
-
         //タッチが終わった瞬間だったら。
         if (m_touchInput.HasJustReleased())
         {

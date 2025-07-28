@@ -14,7 +14,7 @@ public class PlayerGameOverState : PlayerStateBase
 
     public override void Update()
     {
-
+        m_playerMoveBase.GameOverMove();
     }
 
     public override void Exit()

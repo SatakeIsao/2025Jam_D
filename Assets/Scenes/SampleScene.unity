@@ -4798,7 +4798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_moveSpeed: 50
   m_adjustmentSpeed: 1
-  m_drag: 1
+  m_drag: 200
   m_angularDrag: 1
 --- !u!50 &2030662866
 Rigidbody2D:
