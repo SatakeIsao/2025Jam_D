@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TouchInput : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class TouchInput : MonoBehaviour
 
     //ボールの移動をロックするかどうかのフラグ
     bool m_isFlickLock = false;
+
+    public event Action OnDragEnded;
 
     /// <summary>
     /// ボールのロックを設定するメソッド。
@@ -38,9 +41,17 @@ public class TouchInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //タッチの位置を更新
-        UpdateTouchPosition();
+        //ロックがかかっていない場合はドラッグ位置を更新する。
+        if (!m_isFlickLock)
+        {
+            //タッチの位置を更新
+            UpdateTouchPosition();
+        }
 
+        if (HasJustReleased())
+        {
+            OnDragEnded?.Invoke();
+        }
     }
     /// <summary>
     /// タッチされているかどうかを判定するメソッド。
@@ -48,6 +59,11 @@ public class TouchInput : MonoBehaviour
     /// <returns></returns>
     bool IsTouching()
     {
+        if (m_isFlickLock)
+        {
+            //ボールの移動がロックされている場合はタッチ中ではない。
+            return false;
+        }
         return Input.touchCount > 0;
     }
 
@@ -55,8 +71,13 @@ public class TouchInput : MonoBehaviour
     /// タッチが終わった瞬間かどうかを判定するメソッド。
     /// </summary>
     /// <returns></returns>
-    public bool IsTouchEnded()
+    public bool HasJustReleased()
     {
+        if (m_isFlickLock)
+        {
+            //ボールの移動がロックされている場合はタッチ中ではない。
+            return false;
+        }
         return Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended;
     }
 
@@ -120,7 +141,7 @@ public class TouchInput : MonoBehaviour
     public Vector2 GetSwipeEndedDirection()
     {
         //タッチが終わった瞬間かどうかを判定。
-        if (IsTouchEnded())
+        if (HasJustReleased())
         {
             //スワイプの方向。
             Vector2 swipeEndedDirectionVector;

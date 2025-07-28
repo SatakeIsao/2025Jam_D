@@ -12,9 +12,22 @@ public class PlayerMoveBase : MonoBehaviour
     private Rigidbody2D m_rigidBody;
     private TouchInput m_touchInput;
     private MauseInput m_mouseInput;
+    bool m_hasPulled = false; //引っ張ったかどうかのフラグ
 
-   
-
+    /// <summary>
+    /// 引っ張った後に止まったかどうか？
+    /// </summary>
+    /// <returns></returns>
+    public bool HasStoppedAfterPull()
+    {
+        //引っ張った後に止まったかどうかをチェックする。
+        if (m_hasPulled)
+        {
+            m_hasPulled = false; //フラグをリセット。
+            if (GetIsStop()) return true;
+        }
+            return false;
+    }
 
     /// <summary>
     /// 今止まっているかどうか？
@@ -47,6 +60,20 @@ public class PlayerMoveBase : MonoBehaviour
         m_rigidBody.angularDrag= m_angularDrag; //Rigidbody2Dの角度ドラッグを取得。
     }
 
+    void Start()
+    {
+        //引っ張って放したら、呼ばれるイベントに関数を追加。
+        m_mouseInput.OnDragEnded += () => {
+            //ロックがかかっていないとき、マウスのドラッグが終わったら、ロックをかける。
+            if (!m_mouseInput.IsFlickLock()|| !m_touchInput.IsFlickLock()) m_hasPulled = true;
+        };
+        m_touchInput.OnDragEnded += () =>
+        {
+            //ロックがかかっていないとき、タッチのドラッグが終わったら、ロックをかける。
+            if (!m_mouseInput.IsFlickLock() || !m_touchInput.IsFlickLock()) m_hasPulled = true;
+        };
+    }
+
     /// <summary>
     /// スワイプの方向に力を加えるメソッド。
     /// </summary>
@@ -64,41 +91,44 @@ public class PlayerMoveBase : MonoBehaviour
 
     }
 
-    void FlicLockManager()
-    {
-        //ロックがかかっていないとき。
-        if (!m_mouseInput.IsFlickLock())
-        {
-            if(m_mouseInput.IsDragEnded())
-            {
-                m_mouseInput.SetFlickLock(true);
-            }
-        }
+    //void FlicLockManager()
+    //{
+    //    //ロックがかかっていないとき。
+    //    if (!m_mouseInput.IsFlickLock())
+    //    {
+    //        if(m_mouseInput.IsDragEnded())
+    //        {
+    //            //TODO: 今はインプット側のisFlickLockがロックの主導権を持っているが、時間があれば
+    //            //ムーブ側が主導権を持つようにする。
+    //            m_mouseInput.SetFlickLock(true);
 
-        if (!m_touchInput.IsFlickLock())
-        {
-            if (m_touchInput.IsTouchEnded())
-            {
-                //マウスのドラッグが終わったら、ロックをかける。
-                m_touchInput.SetFlickLock(true);
-            }
-        }
+    //        }
+    //    }
+
+    //    if (!m_touchInput.IsFlickLock())
+    //    {
+    //        if (m_touchInput.IsTouchEnded())
+    //        {
+    //            //マウスのドラッグが終わったら、ロックをかける。
+    //            m_touchInput.SetFlickLock(true);
+    //        }
+    //    }
 
 
-    }
+    //}
 
     void Update()
     {
 
         //タッチが終わった瞬間だったら。
-        if (m_touchInput.IsTouchEnded())
+        if (m_touchInput.HasJustReleased())
         {
          //タッチの終了位置から方向を取得して、力を加える。
          AddForce(m_touchInput.GetSwipeEndedDirection());
         }
 
         //マウスのドラッグが終わった瞬間だったら。
-        if (m_mouseInput.IsDragEnded())
+        if (m_mouseInput.HasJustReleased())
         {
           //マウスのドラッグ終了位置から方向を取得して、力を加える。
           AddForce(m_mouseInput.GetSwipeEndedDirection());
@@ -110,8 +140,10 @@ public class PlayerMoveBase : MonoBehaviour
             m_rigidBody.velocity = Vector2.zero;
         }
 
-        //ロックの管理を行う。
-        FlicLockManager();
+
+        //TODO：ターンマネージャーでロックの管理を行うようにする。
+        ////ロックの管理を行う。
+        //FlicLockManager();
 
     }
 }
