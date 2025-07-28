@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameClear : MonoBehaviour
 {
     private Canvas m_canvas;
+    private Animator m_anim;
     public GameObject GameClearUIObj;
     float m_longPushDown = 0.5f; // キーを押してからの時間
 
@@ -13,28 +14,28 @@ public class GameClear : MonoBehaviour
     {
         m_canvas = GameClearUIObj.GetComponent<Canvas>();
         m_canvas.enabled = false;
+        m_anim = GameClearUIObj.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
         m_canvas.enabled = EnemyCheckScript.m_instance.gameClearFlag;
-        //デバッグ用
-        //if(Input.GetKeyDown(KeyCode.Tab))
-        //{
-        //    Invoke(nameof(LongPush), m_longPushDown);
-        //}
-        //else if(Input.GetKeyUp(KeyCode.Tab) && IsInvoking(nameof(LongPush)))
-        //{
-        //    CancelInvoke(nameof(LongPush));
-        //    m_canvas.enabled = false; // キーを離したらキャンバスを非表示にする
-        //}
+        //ゲームクリアになった時にアニメーションを再生
+        OnEnable();
     }
 
     void LongPush()
     {
         //条件はデバッグ用。
         m_canvas.enabled = true; 
-     //       = Input.GetKeyDown(KeyCode.Tab);
+    }
+
+    private void OnEnable()
+    {
+        if(EnemyCheckScript.m_instance.gameClearFlag)
+        {
+            m_anim.SetBool("isGameClear", true);
+        }
     }
 }
