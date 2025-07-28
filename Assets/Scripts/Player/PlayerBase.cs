@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum PlayerState
 {
@@ -14,7 +15,7 @@ public enum PlayerState
 public struct Palamata
 {
     [SerializeField] public float speed;
-    [SerializeField] public float hp;
+    [SerializeField] public int hp;
     [SerializeField] public int attack;
     [SerializeField] public float defence;
 }
@@ -25,12 +26,16 @@ public class PlayerBase : MonoBehaviour
     public PlayerMoveBase m_playerMoveBase;
     public TouchInput m_touchInput;
     public MauseInput m_mauseInput;
-
-
-
-
-
+    int m_damageTaken = 0; // 受けたダメージの合計
     [SerializeField] private Palamata m_palamata;
+    public event Action <PlayerBase> OnDamaged;// ダメージを受けたときのイベント。
+
+
+    private void AddDamage(int damage)
+    {
+        m_damageTaken += damage;
+        OnDamaged?.Invoke(this); // ダメージを受けたときのイベントを呼び出す。
+    }
 
     /// <summary>
     /// プレイヤーの状態を変更するメソッド。
@@ -66,6 +71,11 @@ public class PlayerBase : MonoBehaviour
 
         // 新しい状態のEnter呼ぶ
         currentState.Enter(this.gameObject);
+    }
+
+    public int GetDamagae()
+    {
+        return m_damageTaken;
     }
 
     public Palamata GetPalamata()
@@ -117,7 +127,7 @@ public class PlayerBase : MonoBehaviour
         m_playerMoveBase.SetMoveSpeed(m_palamata.speed);
     }
 
-    protected void SetPalamata(float speed, float hp, int attack, float defence)
+    protected void SetPalamata(float speed, int hp, int attack, float defence)
     {
         m_palamata.speed = speed;
         m_palamata.hp = hp;
