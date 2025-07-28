@@ -58,11 +58,11 @@ public class EnemyStatus : MonoBehaviour
         {EnSmallPosHorizontal.enRight,  2.5f},
         {EnSmallPosHorizontal.enEmpty,  0.0f},
     };
-
+    
     //HP
-    private int m_HP = 0;
+    public int m_HP = 0;
     //最大HP
-    [SerializeField] private int m_maxHP = 0;
+    [SerializeField] public int m_maxHP = 0;
     //初期位置（縦）
     [SerializeField] private EnSmallPosVertical m_newPositionVer = EnSmallPosVertical.enEmpty;
     //初期位置（横）
