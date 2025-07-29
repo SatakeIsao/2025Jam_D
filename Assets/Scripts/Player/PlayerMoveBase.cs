@@ -45,11 +45,15 @@ public class PlayerMoveBase : MonoBehaviour
             m_startGameOverPos = transform.position;
             IsStartGameOverMove = false;
         }
-
-        m_gameOverMoveTime += 1.0f; //ジャンプの時間を更新。
-        if(m_gameOverMoveTime * 0.02f <= 3.141592f)
+        float animationSpeed = 0.02f;
+        m_gameOverMoveTime += 1.0f;
+        if(m_gameOverMoveTime * animationSpeed <= 3.141592f)
         {
-            transform.position = new Vector3(transform.position.x, m_startJumpPos.y + (Mathf.Sin(m_gameOverMoveTime * 0.02f) * 1.5f), transform.position.z);
+            //ジャンプする動きの計算。
+            transform.position = new Vector3(transform.position.x, m_startJumpPos.y + (Mathf.Sin(m_gameOverMoveTime * animationSpeed) * 1.5f), transform.position.z);
+
+            //回転する動きの計算。
+            transform.Rotate(Vector3.forward * Mathf.Lerp(0.0f,-(3.141592f/2), (m_gameOverMoveTime * animationSpeed) /3.141592f));
         }
     }
 
@@ -162,6 +166,7 @@ public class PlayerMoveBase : MonoBehaviour
 
     void Update()
     {
+        GameOverMove();
         //タッチが終わった瞬間だったら。
         if (m_touchInput.HasJustReleased())
         {
