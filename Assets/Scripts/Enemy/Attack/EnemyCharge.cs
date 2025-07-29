@@ -27,10 +27,8 @@ public class EnemyCharge : MonoBehaviour
     [SerializeField] private int m_turnNum = 0;
     //現在の残りターン数
     private int m_restTurnNum = 0;
-    //ウェイポイントの位置（縦）
-    [SerializeField] private EnSmallPosVertical wayVer = EnSmallPosVertical.enEmpty;
-    //ウェイポイントの位置（横）
-    [SerializeField] private EnSmallPosHorizontal wayHor = EnSmallPosHorizontal.enEmpty;
+    //ウェイポイントの位置
+    [SerializeField] private Vector2 m_wayPointPos = Vector2.zero;
     //一度の突進での移動距離
     private const float m_chargeDistance = 2.0f;
     //突進の目標位置の状態
@@ -146,7 +144,7 @@ public class EnemyCharge : MonoBehaviour
         //突進の目標位置を設定
         if (m_chargeTarget == EnChargeTarget.enToWayPoint)
         {
-            m_targetPos = enemyStatus.GetPosition((int)wayVer, (int)wayHor);
+            m_targetPos = m_wayPointPos;
         }
         else if(m_chargeTarget == EnChargeTarget.enToNewPos)
         {

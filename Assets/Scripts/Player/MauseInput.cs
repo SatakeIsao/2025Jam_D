@@ -11,7 +11,10 @@ public class MauseInput : MonoBehaviour
     private Vector2 m_dragCurrentPos = Vector2.zero;   //ドラッグ中の現在位置
     private bool m_isDragging = false;  //ドラッグ中かどうか
     bool m_isFlickLock = false; //ボールの移動をロックするかどうかのフラグ
+    public event Action OnDragStarted; //ドラッグ開始時のイベント
     public event Action OnDragEnded;
+    public event Action<float> OnArrowLengthUpdated; //ドラッグ中のイベント
+    public event Action<float> OnArrowRotationUpdated; //ドラッグ中のイベント
 
 
     public bool IsFlickLock()
@@ -47,6 +50,15 @@ public class MauseInput : MonoBehaviour
         if (HasJustReleased())
         {
             OnDragEnded?.Invoke();
+        }
+        if (IsDragStarted())
+        {
+            OnDragStarted?.Invoke();
+        }
+        if (IsDragging())
+        {
+            OnArrowRotationUpdated?.Invoke(CalculateDragAngle());
+            OnArrowLengthUpdated?.Invoke(GetSwipeDistance());
         }
     }
 
@@ -119,11 +131,8 @@ public class MauseInput : MonoBehaviour
             //スワイプの方向を計算。
             swipeDirectionVector = m_dragCurrentPos - m_dragStartPos;
 
-            //スワイプの方向を正規化。
-            swipeDirectionVector.Normalize();
-
-            //スワイプの方向を返す。
-            return swipeDirectionVector;
+            //正規化されたスワイプベクトルをかえす。。
+            return swipeDirectionVector.normalized;
         }
         else
         {
@@ -135,7 +144,7 @@ public class MauseInput : MonoBehaviour
 
 
     /// <summary>
-    /// タッチでスワイプが終わった方向を取得するメソッド。
+    /// タッチでスワイプが終わった角度を取得するメソッド。
     /// </summary>
     /// <returns></returns>
     public Vector2 GetSwipeEndedDirection()
@@ -149,11 +158,8 @@ public class MauseInput : MonoBehaviour
             //スワイプの方向を計算。
             swipeEndedDirectionVector = m_dragCurrentPos - m_dragStartPos;
 
-            //スワイプの方向を正規化。
-            swipeEndedDirectionVector.Normalize();
-
-            //スワイプの方向を返す。
-            return swipeEndedDirectionVector;
+            //正規化されたスワイプベクトルをかえす。。
+            return swipeEndedDirectionVector.normalized;
         }
         else
         {
@@ -184,5 +190,11 @@ public class MauseInput : MonoBehaviour
             return 0.0f;
 
         }
+    }
+
+    public float CalculateDragAngle()
+    {
+        float angle = Mathf.Atan2(GetSwipeDirection().y, GetSwipeDirection().x) * Mathf.Rad2Deg;
+        return angle;
     }
 }
