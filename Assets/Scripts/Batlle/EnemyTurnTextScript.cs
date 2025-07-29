@@ -7,11 +7,7 @@ public class EnemyTurnTextScript : MonoBehaviour
 {
     public TextMeshProUGUI EnemyTurnText;
 
-    public PlayerMoveBase playerMoveBase; // プレイヤーの移動スクリプトを参照するための変数
-
-    public PlayerTurnTextScript playerTurnTextScript; // プレイヤーのターンテキストスクリプトを参照するための変数
-
-    public TurnCountScript turnCountScript; // ターン数を管理するスクリプトを参照するための変数
+    [SerializeField] private BattleManager battleManager; // BattleManagerを参照するための変数
 
     public float enemyTurnTimer = 2.0f; // 敵のターン表示時間
 
@@ -23,32 +19,21 @@ public class EnemyTurnTextScript : MonoBehaviour
 
     void EnemyTurnFlag()
     {
-        if (turnCountScript.EnemyTurn == 0)
+        if (battleManager.IsEnemyActive == true)
         {
-            if (playerTurnTextScript.playerTurnFlag == false)
+            EnemyTurnText.gameObject.SetActive(true); // 敵のターンテキストを表示する
+            enemyTurnTimer -= Time.deltaTime; // タイマーを減少させる
+            if (enemyTurnTimer <= 0.0f) // タイマーが0以下になったら
             {
-                if (playerMoveBase.HasStoppedAfterPull())
-                {
-                    Debug.Log("敵のターンです。"); // デバッグ用のログ出力
-                    EnemyTurnText.gameObject.SetActive(true); // 敵のターンテキストを表示する
-                    enemyTurnTimer -= Time.deltaTime; // タイマーを減少させる
-                    if (enemyTurnTimer <= 0.0f) // タイマーが0以下になったら
-                    {
-                        EnemyTurnText.gameObject.SetActive(false); // 敵のターンテキストを非表示にする
-                        enemyTurnTimer = 2.0f; // タイマーをリセット
-                    }
-                }
-                else
-                {
-                    EnemyTurnText.gameObject.SetActive(false); // 敵のターンテキストを非表示にする
-                }
+                EnemyTurnText.gameObject.SetActive(false); // 敵のターンテキストを非表示にする
+                enemyTurnTimer = 2.0f; // タイマーをリセット
             }
         }
-
         else
         {
             EnemyTurnText.gameObject.SetActive(false); // 敵のターンテキストを非表示にする
         }
+
     }
 
     // Update is called once per frame
