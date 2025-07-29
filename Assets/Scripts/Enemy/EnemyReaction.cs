@@ -20,10 +20,9 @@ enum EnWeakPointPos {
 public class EnemyReaction : MonoBehaviour
 {
     //敵の弱点の位置
-    [SerializeField] private EnWeakPointPos weakPointPos = EnWeakPointPos.enEmpty;    
+    [SerializeField] private EnWeakPointPos weakPointPos = EnWeakPointPos.enEmpty;
 
     EnemyStatus enemyStatus; // 敵のステータス
-
     WeakPoint weakPoint; // 弱点のスクリプト
     GameObject m_weakObject = null; // 弱点のオブジェクト    
 
@@ -52,9 +51,17 @@ public class EnemyReaction : MonoBehaviour
         //}
 
         enemyStatus = GetComponent<EnemyStatus>();
-        m_weakObject=GetComponentInChildren<WeakPoint>().gameObject; // 弱点のオブジェクトを取得
+        m_weakObject = GetComponentInChildren<WeakPoint>().gameObject; // 弱点のオブジェクトを取得
+        SpriteRenderer weakRenderer = m_weakObject.GetComponent<SpriteRenderer>();
+        weakRenderer.sortingOrder = 10; // 弱点のスプライトの描画順を設定
+        //弱点オブジェクトの null チェック
+        if (m_weakObject == null) {
+            Debug.LogError("弱点オブジェクトがアタッチされていません！！");
+            return;
+        }
         weakPoint = m_weakObject.GetComponentInChildren<WeakPoint>();
-        weakPoint.transform.position = transform.position + (Vector3)weakPointPattern[weakPointPos]; // 弱点の位置を設定
+        m_weakObject.transform.position = transform.position + (Vector3)weakPointPattern[weakPointPos]; // 弱点の位置を設定
+        m_weakObject.transform.localScale = new Vector3(3.0f, 3.0f, 1.0f); // 弱点のスケールを設定
     }
 
     // Update is called once per frame
@@ -70,6 +77,11 @@ public class EnemyReaction : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
+
+        //null チェック 
+        if (weakPoint == null) {
+            return;
+        }
 
         if (other.tag == "Player")
         {
