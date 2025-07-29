@@ -320,7 +320,7 @@ MonoBehaviour:
   m_healImage: {fileID: 2000633733}
   m_maxHP: 100
   m_minHP: 0
-  m_isHpZero: 1
+  m_isHpZero: 0
 --- !u!1 &124597177
 GameObject:
   m_ObjectHideFlags: 0
@@ -911,8 +911,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HP: 0
   m_maxHP: 400
-  m_newPositionVer: 1
-  m_newPositionHor: 1
 --- !u!114 &318966798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1370,7 +1368,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1964009513}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3892,8 +3890,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HP: 0
   m_maxHP: 200
-  m_newPositionVer: 2
-  m_newPositionHor: 0
 --- !u!114 &1388877570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4132,8 +4128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HP: 0
   m_maxHP: 200
-  m_newPositionVer: 0
-  m_newPositionHor: 2
 --- !u!114 &1527479380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5285,7 +5279,6 @@ CanvasRenderer:
   m_GameObject: {fileID: 1839401197}
   m_CullTransparentMesh: 1
 --- !u!1 &1850729344
-
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6233,8 +6226,7 @@ Transform:
   m_LocalPosition: {x: -1.53, y: -7.149, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 0.3}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 1964009513}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2030662865
@@ -6366,3 +6358,4 @@ SceneRoots:
   - {fileID: 637908310}
   - {fileID: 226110584}
   - {fileID: 1850729348}
+  - {fileID: 543968837}

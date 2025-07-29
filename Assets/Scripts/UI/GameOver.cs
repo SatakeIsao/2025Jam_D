@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-   // private HPManager PManager; // HPManagerのインスタンスを参照するための変数
+    private bool animationTriggered = false; // アニメーションがトリガーされたかどうかを追跡するフラグ
 
     [SerializeField] private Canvas m_canvas;
     [SerializeField] private Animator m_anim;
@@ -23,20 +24,18 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_canvas.enabled = HPManager.m_instance.m_isHpZero;
-        //ゲームオーバーになった時にアニメーションを再生
-       // OnEnable();
-    }
-
-    /// <summary>
-    /// ゲームオーバーになった時にアニメーションを再生
-    /// </summary>
-    private void OnEnable()
-    {
-        if (HPManager.m_instance.m_isHpZero)
+        if (HPManager.m_instance != null) // nullチェックを追加
         {
-            m_anim.SetBool("isGameOver", true);
+            m_canvas.enabled = HPManager.m_instance.m_isHpZero;
+
+            if (HPManager.m_instance.m_isHpZero && !animationTriggered)
+            {
+                m_anim.SetBool("isGameOver", true);
+                animationTriggered = true; // アニメーションを一度だけ再生
+                Debug.Log("ゲームオーバーアニメーションを再生しました。");
+            }
+
         }
-        
     }
+   
 }
