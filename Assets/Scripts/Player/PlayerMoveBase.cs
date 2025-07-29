@@ -166,7 +166,6 @@ public class PlayerMoveBase : MonoBehaviour
 
     void Update()
     {
-        GameOverMove();
         //タッチが終わった瞬間だったら。
         if (m_touchInput.HasJustReleased())
         {
