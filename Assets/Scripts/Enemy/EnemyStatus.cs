@@ -15,29 +15,6 @@ enum EnEnemyType {
     enEmpty,
 }
 
-/// <summary>
-/// 雑魚敵の縦座標のパターン
-/// </summary>
-enum EnSmallPosVertical { 
-    enTop,
-    enMiddleTop,
-    enMiddle,
-    enMiddleBottom,
-    enBottom,
-    enEmpty,
-}
-
-/// <summary>
-/// 雑魚敵の横座標のパターン
-/// </summary>
-enum EnSmallPosHorizontal {
-    enLeft,
-    enMiddle,
-    enRight,
-    enEmpty,
-}
-
-
 
 public class EnemyStatus : MonoBehaviour
 {    
@@ -45,8 +22,6 @@ public class EnemyStatus : MonoBehaviour
     public int m_HP = 0;
     //最大HP
     [SerializeField] public int m_maxHP = 0;
-    //初期位置（縦）
-    [SerializeField] private EnSmallPosVertical m_newPositionVer = EnSmallPosVertical.enEmpty;
     //初期位置
     Vector2 m_newPosition = Vector2.zero;
 
