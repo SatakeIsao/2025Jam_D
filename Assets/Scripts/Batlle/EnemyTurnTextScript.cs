@@ -23,12 +23,13 @@ public class EnemyTurnTextScript : MonoBehaviour
 
     void EnemyTurnFlag()
     {
-        if (turnCountScript.EnemyTurnCount == 0)
+        if (turnCountScript.EnemyTurn == 0)
         {
             if (playerTurnTextScript.playerTurnFlag == false)
             {
-                if (playerMoveBase.GetIsStop())
+                if (playerMoveBase.HasStoppedAfterPull())
                 {
+                    Debug.Log("敵のターンです。"); // デバッグ用のログ出力
                     EnemyTurnText.gameObject.SetActive(true); // 敵のターンテキストを表示する
                     enemyTurnTimer -= Time.deltaTime; // タイマーを減少させる
                     if (enemyTurnTimer <= 0.0f) // タイマーが0以下になったら
