@@ -100,6 +100,9 @@ public class EnemyReaction : MonoBehaviour
                 enemyStatus.ApplyDamage(20); // 弱点にヒットしていないなら通常ダメージを与える
                 Debug.Log("1");
             }
+
+            //効果音を再生。
+            AudioManager.Instance.PlaySE(AudioManager.SEType.enEnemyDamage);
         }
     }
 
