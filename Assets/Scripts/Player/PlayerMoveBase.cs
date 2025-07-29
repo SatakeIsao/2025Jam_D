@@ -166,6 +166,16 @@ public class PlayerMoveBase : MonoBehaviour
 
     //}
 
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        //ボールが壁に衝突したときの効果音を鳴らす。
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            AudioManager.Instance.PlaySE(AudioManager.SEType.enReflection);
+        }
+    }
+
+
     void Update()
     {
         //タッチが終わった瞬間だったら。
