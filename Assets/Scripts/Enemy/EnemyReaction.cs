@@ -65,7 +65,7 @@ public class EnemyReaction : MonoBehaviour
             Debug.LogError("弱点オブジェクトがアタッチされていません！！");
             return;
         }
-        weakPoint = m_weakObject.GetComponentInChildren<WeakPoint>();
+        weakPoint = m_weakObject.GetComponent<WeakPoint>();
         m_weakObject.transform.position = transform.position + (Vector3)weakPointPattern[weakPointPos]; // 弱点の位置を設定
     }
 
