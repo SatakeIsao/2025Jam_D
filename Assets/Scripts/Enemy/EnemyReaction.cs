@@ -39,6 +39,12 @@ public class EnemyReaction : MonoBehaviour
     public Canvas m_hpCanvas;
 
 
+    public int WeakPointPos
+    {
+        get { return (int)weakPointPos; }
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +67,6 @@ public class EnemyReaction : MonoBehaviour
         }
         weakPoint = m_weakObject.GetComponentInChildren<WeakPoint>();
         m_weakObject.transform.position = transform.position + (Vector3)weakPointPattern[weakPointPos]; // 弱点の位置を設定
-        m_weakObject.transform.localScale = new Vector3(3.0f, 3.0f, 1.0f); // 弱点のスケールを設定
     }
 
     // Update is called once per frame
