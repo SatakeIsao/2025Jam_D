@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] private HPManager HPManager; // HPManagerのインスタンスを参照するための変数
+   // private HPManager PManager; // HPManagerのインスタンスを参照するための変数
 
-    private Canvas m_canvas;
-    private Animator m_anim;
+    [SerializeField] private Canvas m_canvas;
+    [SerializeField] private Animator m_anim;
     public GameObject GameOverUIObj;
     
     // Start is called before the first frame update
@@ -17,6 +17,7 @@ public class GameOver : MonoBehaviour
         m_canvas = GameOverUIObj.GetComponent<Canvas>();
         m_canvas.enabled = false;
         m_anim = GameOverUIObj.GetComponent<Animator>();
+       
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class GameOver : MonoBehaviour
     {
         m_canvas.enabled = HPManager.m_instance.m_isHpZero;
         //ゲームオーバーになった時にアニメーションを再生
-        OnEnable();
+       // OnEnable();
     }
 
     /// <summary>

@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameClear : MonoBehaviour
 {
-    private Canvas m_canvas;
-    private Animator m_anim;
+   [SerializeField] private Canvas m_canvas;
+   [SerializeField] private Animator m_anim;
     public GameObject GameClearUIObj;
     float m_longPushDown = 0.5f; // ƒL[‚ğ‰Ÿ‚µ‚Ä‚©‚ç‚ÌŠÔ
 
