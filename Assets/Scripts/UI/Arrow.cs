@@ -13,7 +13,12 @@ public class Arrow : MonoBehaviour
     {
         if (transform.parent != null && transform.parent.parent != null)
         {
-          m_mauseInput = transform.parent.parent.GetComponent<MauseInput>();
+            Debug.Log("マウスインプットのコンポーネントを取得");
+            m_mauseInput = transform.parent.parent.GetComponent<MauseInput>();
+        }
+        if (m_mauseInput == null)
+        {
+            Debug.LogError("MouseInput が見つかりませんでした");
         }
         arrow = this.gameObject;
         m_arrowRectTransform = arrow.GetComponent<RectTransform>();
@@ -52,6 +57,10 @@ public class Arrow : MonoBehaviour
     {
         //矢印の角度を設定する。
         m_arrowRectTransform.rotation = Quaternion.Euler(0, 0,angle);
+        if (m_arrowRectTransform == null)
+        {
+            Debug.LogError("RectTransform が見つかりませんでした: " + gameObject.name);
+        }
     }
 
 }
