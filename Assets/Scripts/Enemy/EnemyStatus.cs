@@ -15,60 +15,15 @@ enum EnEnemyType {
     enEmpty,
 }
 
-/// <summary>
-/// 雑魚敵の縦座標のパターン
-/// </summary>
-enum EnSmallPosVertical { 
-    enTop,
-    enMiddleTop,
-    enMiddle,
-    enMiddleBottom,
-    enBottom,
-    enEmpty,
-}
-
-/// <summary>
-/// 雑魚敵の横座標のパターン
-/// </summary>
-enum EnSmallPosHorizontal {
-    enLeft,
-    enMiddle,
-    enRight,
-    enEmpty,
-}
-
-
 
 public class EnemyStatus : MonoBehaviour
-{
-    //座標の縦軸のパターン（雑魚敵）
-    private Dictionary<EnSmallPosVertical, float> smallVerticalPattern = new Dictionary<EnSmallPosVertical, float>(){
-        {EnSmallPosVertical.enTop,          11.0f},
-        {EnSmallPosVertical.enMiddleTop,    6.5f},
-        {EnSmallPosVertical.enMiddle,       2.0f},
-        {EnSmallPosVertical.enMiddleBottom, -2.5f},
-        {EnSmallPosVertical.enBottom,       -7.0f},
-        {EnSmallPosVertical.enEmpty,        0},
-    };
-
-    //座標の横軸のパターン（雑魚敵）
-    private Dictionary<EnSmallPosHorizontal, float> smallHorizontalPattern = new Dictionary<EnSmallPosHorizontal, float>() {
-        {EnSmallPosHorizontal.enLeft,   -2.5f},
-        {EnSmallPosHorizontal.enMiddle, 0.0f},
-        {EnSmallPosHorizontal.enRight,  2.5f},
-        {EnSmallPosHorizontal.enEmpty,  0.0f},
-    };
-    
+{    
     //HP
     public int m_HP = 0;
     //最大HP
     [SerializeField] public int m_maxHP = 0;
-    //初期位置（縦）
-    [SerializeField] private EnSmallPosVertical m_newPositionVer = EnSmallPosVertical.enEmpty;
-    //初期位置（横）
-    [SerializeField] private EnSmallPosHorizontal m_newPositionHor = EnSmallPosHorizontal.enEmpty;
-    // エネミーの種類
-    //[SerializeField] private EnEnemyType m_enemyType = EnEnemyType.enEmpty;
+    //初期位置
+    Vector2 m_newPosition = Vector2.zero;
 
     /// <summary>
     /// 初期位置を取得
@@ -76,7 +31,7 @@ public class EnemyStatus : MonoBehaviour
     /// <returns>初期位置</returns>
     public Vector2 GetNewPos()
     {
-        return new Vector2(smallHorizontalPattern[m_newPositionHor], smallVerticalPattern[m_newPositionVer]);
+        return m_newPosition;
     }
 
     /// ダメージを受ける
@@ -116,17 +71,6 @@ public class EnemyStatus : MonoBehaviour
     }
 
     /// <summary>
-    /// パターンを入力して座標を返す
-    /// </summary>
-    /// <param name="ver">縦のパターン</param>
-    /// <param name="hor">横のパターン</param>
-    /// <returns>返された座標</returns>
-    public Vector2 GetPosition(int ver,int hor)
-    {
-        return new Vector2(smallHorizontalPattern[(EnSmallPosHorizontal)hor], smallVerticalPattern[(EnSmallPosVertical)ver]);
-    }
-
-    /// <summary>
     /// コンストラクタ
     /// </summary>
     /// <param name="hp">初期HP</param>
@@ -144,7 +88,7 @@ public class EnemyStatus : MonoBehaviour
         m_HP = m_maxHP; // 初期HPを最大HPに設定
 
         //初期位置をセット
-        transform.position = new Vector2(smallHorizontalPattern[m_newPositionHor], smallVerticalPattern[m_newPositionVer]);
+        m_newPosition = (Vector2)transform.position;
     }
 
     /// Update is called once per frame
