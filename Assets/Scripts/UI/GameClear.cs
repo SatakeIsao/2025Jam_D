@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameClear : MonoBehaviour
 {
@@ -33,6 +34,11 @@ public class GameClear : MonoBehaviour
         {
             m_canvas.enabled = true;
             m_anim.SetBool("isGameClear", true);
+
+            if(Input.GetKeyDown(KeyCode.Tab))
+            {
+                SceneManager.LoadScene("TitleScene");
+            }
         }
     }
 }
