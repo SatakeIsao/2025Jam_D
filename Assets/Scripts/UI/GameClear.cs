@@ -35,10 +35,10 @@ public class GameClear : MonoBehaviour
             m_canvas.enabled = true;
             m_anim.SetBool("isGameClear", true);
 
-            if(Input.GetKeyDown(KeyCode.Tab))
-            {
-                SceneManager.LoadScene("TitleScene");
-            }
+            //if(Input.GetKeyDown(KeyCode.Tab))
+            //{
+            //    SceneManager.LoadScene("TitleScene");
+            //}
         }
     }
 }
