@@ -44,12 +44,14 @@ public class Arrow : MonoBehaviour
     public void SetLengthUpdated(float scale)
     {
         //矢印のスケールを設定する。
-        arrow.transform.localScale = new Vector3(scale,1.0f , 1.0f);
+        //入力と逆の方向に矢印を向けるため、X軸のスケールをマイナスにする。
+        arrow.transform.localScale = new Vector3(-scale,1.0f , 1.0f);
     }
 
     public void RotateArrow(float angle)
     {
-        m_arrowRectTransform.rotation = Quaternion.Euler(0, 0, angle);
+        //矢印の角度を設定する。
+        m_arrowRectTransform.rotation = Quaternion.Euler(0, 0,angle);
     }
 
 }
