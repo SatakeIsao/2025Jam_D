@@ -20,21 +20,18 @@ public class GameClear : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Canvasの有効か無効かを切り替えるフラグのみをチェック
         m_canvas.enabled = EnemyCheckScript.m_instance.gameClearFlag;
-        //ゲームクリアになった時にアニメーションを再生
-        OnEnable();
     }
 
-    void LongPush()
-    {
-        //条件はデバッグ用。
-        m_canvas.enabled = true; 
-    }
-
-    private void OnEnable()
+    /// <summary>
+    /// ゲームクリア条件が満たされたときに呼び出される処理
+    /// </summary>
+    public void TrigggerGameClearUI()
     {
         if(EnemyCheckScript.m_instance.gameClearFlag)
         {
+            m_canvas.enabled = true;
             m_anim.SetBool("isGameClear", true);
         }
     }
