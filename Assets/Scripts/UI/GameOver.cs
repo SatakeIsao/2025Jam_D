@@ -1,40 +1,40 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    [SerializeField] private HPManager HPManager; // HPManager‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğQÆ‚·‚é‚½‚ß‚Ì•Ï”
+    private bool animationTriggered = false; 
 
-    private Canvas m_canvas;
-    private Animator m_anim;
+    [SerializeField] private Canvas m_canvas;
+    [SerializeField] private Animator m_anim;
     public GameObject GameOverUIObj;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         m_canvas = GameOverUIObj.GetComponent<Canvas>();
         m_canvas.enabled = false;
         m_anim = GameOverUIObj.GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_canvas.enabled = HPManager.m_instance.m_isHpZero;
-        //ƒQ[ƒ€ƒI[ƒo[‚É‚È‚Á‚½‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶
-        OnEnable();
+        if (HPManager.m_instance != null) // nullï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½Ç‰ï¿½
+        {
+            m_canvas.enabled = HPManager.m_instance.m_isHpZero;
+
+            if (HPManager.m_instance.m_isHpZero && !animationTriggered)
+            {
+                m_anim.SetBool("isGameOver", true);
+                animationTriggered = true; 
+            }
+
+        }
     }
 
-    /// <summary>
-    /// ƒQ[ƒ€ƒI[ƒo[‚É‚È‚Á‚½‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶
-    /// </summary>
-    private void OnEnable()
-    {
-        if (HPManager.m_instance.m_isHpZero)
-        {
-            m_anim.SetBool("isGameOver", true);
-        }
-        
-    }
 }
