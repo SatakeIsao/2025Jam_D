@@ -21,11 +21,12 @@ public class EnemyCheckScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyObjects = GameObject.FindGameObjectsWithTag("Enemy"); // "Enemy"タグを持つオブジェクトを全て取得
+       
     }
 
     void CheckEnemyCount()
     {
+        enemyObjects = GameObject.FindGameObjectsWithTag("Enemy"); // "Enemy"タグを持つオブジェクトを全て取得
         EnemyNum = enemyObjects.Length; // 残りの敵の数を取得
 
         if (EnemyNum <= 0) // 残りの敵が0以下なら

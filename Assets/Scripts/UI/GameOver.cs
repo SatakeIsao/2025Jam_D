@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
-    private bool animationTriggered = false; // ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Kï¿½[ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Ç‚ï¿½ï¿½ï¿½ï¿½ï¿½ÇÕ‚ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½O
+    [SerializeField] private HPManager HPManager; // HPManager‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğQÆ‚·‚é‚½‚ß‚Ì•Ï”
 
-    [SerializeField] private Canvas m_canvas;
-    [SerializeField] private Animator m_anim;
+    private Canvas m_canvas;
+    private Animator m_anim;
     public GameObject GameOverUIObj;
     
     // Start is called before the first frame update
@@ -18,24 +16,25 @@ public class GameOver : MonoBehaviour
         m_canvas = GameOverUIObj.GetComponent<Canvas>();
         m_canvas.enabled = false;
         m_anim = GameOverUIObj.GetComponent<Animator>();
-       
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (HPManager.m_instance != null) // nullï¿½`ï¿½Fï¿½bï¿½Nï¿½ï¿½Ç‰ï¿½
-        {
-            m_canvas.enabled = HPManager.m_instance.m_isHpZero;
-
-            if (HPManager.m_instance.m_isHpZero && !animationTriggered)
-            {
-                m_anim.SetBool("isGameOver", true);
-                animationTriggered = true; // ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½Äï¿½
-                Debug.Log("ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½[ï¿½oï¿½[ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B");
-            }
-
-        }
+        m_canvas.enabled = HPManager.m_instance.m_isHpZero;
+        //ƒQ[ƒ€ƒI[ƒo[‚É‚È‚Á‚½‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶
+        OnEnable();
     }
-   
+
+    /// <summary>
+    /// ƒQ[ƒ€ƒI[ƒo[‚É‚È‚Á‚½‚ÉƒAƒjƒ[ƒVƒ‡ƒ“‚ğÄ¶
+    /// </summary>
+    private void OnEnable()
+    {
+        if (HPManager.m_instance.m_isHpZero)
+        {
+            m_anim.SetBool("isGameOver", true);
+        }
+        
+    }
 }

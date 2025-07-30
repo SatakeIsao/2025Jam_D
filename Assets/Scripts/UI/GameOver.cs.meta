@@ -3,9 +3,7 @@ guid: 35642f261a5a65242b2a4c795173d64b
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - HPManager: {instanceID: 0}
-  - GameOverUIObj: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

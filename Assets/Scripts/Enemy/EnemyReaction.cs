@@ -65,7 +65,7 @@ public class EnemyReaction : MonoBehaviour
             Debug.LogError("弱点オブジェクトがアタッチされていません！！");
             return;
         }
-        weakPoint = m_weakObject.GetComponent<WeakPoint>();
+        weakPoint = m_weakObject.GetComponentInChildren<WeakPoint>();
         m_weakObject.transform.position = transform.position + (Vector3)weakPointPattern[weakPointPos]; // 弱点の位置を設定
     }
 
@@ -100,6 +100,9 @@ public class EnemyReaction : MonoBehaviour
                 enemyStatus.ApplyDamage(20); // 弱点にヒットしていないなら通常ダメージを与える
                 Debug.Log("1");
             }
+
+            //効果音を再生。
+            AudioManager.Instance.PlaySE(AudioManager.SEType.enEnemyDamage);
         }
     }
 

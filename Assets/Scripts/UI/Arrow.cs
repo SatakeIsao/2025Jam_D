@@ -17,7 +17,7 @@ public class Arrow : MonoBehaviour
             Debug.Log("マウスインプットのコンポーネントを取得");
             m_mauseInput = transform.parent.parent.GetComponent<MauseInput>();
         }
-       else
+        if (m_mauseInput == null)
         {
             Debug.Log("このスクリプトがアタッチされているオブジェクトの名前: " + this.gameObject.name);
             if (this.transform.parent != null)
@@ -67,13 +67,6 @@ public class Arrow : MonoBehaviour
 
     public void toggleArrow(bool IsActive)
     {
-        if (!IsActive)
-        {
-            Debug.Log("矢印を非表示にします。");
-        }
-        else{
-            Debug.Log("矢印を表示にします。");
-        }
         //矢印の表示・非表示を切り替える。
         arrow.SetActive(IsActive);
     }
@@ -92,10 +85,6 @@ public class Arrow : MonoBehaviour
         if (m_arrowRectTransform == null)
         {
             Debug.LogError("RectTransform が見つかりませんでした: " + gameObject.name);
-        }
-        else
-        {
-            Debug.Log("矢印の角度を設定しました: " + angle);
         }
     }
 

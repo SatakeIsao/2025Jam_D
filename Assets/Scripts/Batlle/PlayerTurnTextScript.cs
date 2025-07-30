@@ -6,33 +6,27 @@ using UnityEngine;
 public class PlayerTurnTextScript : MonoBehaviour
 {
     public TextMeshProUGUI TurnText;
-    [SerializeField] private BattleManager battleManager; // BattleManagerの参照
-    public float PlayerTurnTimer = 3.0f;   //～のターンですの表示時間
+    public float PlayerTurnTimer = 3;   //～のターンですの表示時間
+    public bool playerTurnFlag = true; // プレイヤーのターンかどうかのフラグ
 
     // Start is called before the first frame update
     void Start()
     {
-        TurnText.gameObject.SetActive(false); // ターンテキストを表示する
+        TurnText.gameObject.SetActive(true); // ターンテキストを表示する
     }
 
     void PlayerTurnTimerCountDown()
     {
-        if (battleManager.IsPlayerActive == true)
+        if (playerTurnFlag == true)
         {
-            TurnText.gameObject.SetActive(true); // ターンテキストを表示する
-            PlayerTurnTimer -= Time.deltaTime; // ターンタイマーをカウントダウン
-            if (PlayerTurnTimer <= 0)
+            PlayerTurnTimer -= Time.deltaTime; // タイマーを減少させる
+            if (PlayerTurnTimer <= 0.0f) // タイマーが0以下になったら
             {
+                playerTurnFlag = false; // プレイヤーのターンフラグをオフにする
                 TurnText.gameObject.SetActive(false); // ターンテキストを非表示にする
-                PlayerTurnTimer = 0; // ターンタイマーをリセット
+                PlayerTurnTimer = 3.0f; // タイマーをリセット
             }
         }
-        else
-        {
-            TurnText.gameObject.SetActive(false); // ターンテキストを非表示にする
-            PlayerTurnTimer = 3; // ターンタイマーをリセット
-        }
-
     }
 
     // Update is called once per frame

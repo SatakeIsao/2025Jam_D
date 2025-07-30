@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameClear : MonoBehaviour
 {
-   [SerializeField] private Canvas m_canvas;
-   [SerializeField] private Animator m_anim;
+    private Canvas m_canvas;
+    private Animator m_anim;
     public GameObject GameClearUIObj;
     float m_longPushDown = 0.5f; // ƒL[‚ğ‰Ÿ‚µ‚Ä‚©‚ç‚ÌŠÔ
 
@@ -34,11 +33,6 @@ public class GameClear : MonoBehaviour
         {
             m_canvas.enabled = true;
             m_anim.SetBool("isGameClear", true);
-
-            //if(Input.GetKeyDown(KeyCode.Tab))
-            //{
-            //    SceneManager.LoadScene("TitleScene");
-            //}
         }
     }
 }
