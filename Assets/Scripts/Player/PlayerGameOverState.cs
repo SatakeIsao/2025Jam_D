@@ -10,6 +10,8 @@ public class PlayerGameOverState : PlayerStateBase
         SetComponents();
         // “ü—Í‚ðŽó‚¯•t‚¯‚È‚¢‚æ‚¤‚É‚·‚é
         m_player.SetIsInputRock(true);
+        AudioManager.Instance.PlaySE(AudioManager.SEType.enGameOver);
+
     }
 
     public override void Update()

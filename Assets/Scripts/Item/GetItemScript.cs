@@ -38,12 +38,15 @@ public class GetItemScript : MonoBehaviour
                 Debug.Log("回復アイテムを手に入れた！");
                 // ここにヒール処理を追加
                 hpManager.Heal(HEAL_AMOUNT); // 例として50回復する処理を追加
+                AudioManager.Instance.PlaySE(AudioManager.SEType.enGetItem);
+
             }
             if (collision.gameObject.name == "ATKItem")
             {
                 // 攻撃力アップアイテムを取得した場合の処理
                 Debug.Log("攻撃力アップアイテムを手に入れた！");
                 // ここに攻撃力アップ処理を追加
+                AudioManager.Instance.PlaySE(AudioManager.SEType.enGetItem);
             }
             if (collision.gameObject.name == "SpeedItem")
             {
@@ -54,6 +57,8 @@ public class GetItemScript : MonoBehaviour
                 playerSpeed = playerMoveBase.m_moveSpeed + SPEED_BOOST_AMOUNT; // 例として移動速度を10.0fアップする処理を追加
                 playerMoveBase.m_moveSpeed = playerSpeed; // プレイヤーの移動速度を更新
                 Debug.Log("新しい移動速度: " + playerMoveBase.m_moveSpeed);
+                AudioManager.Instance.PlaySE(AudioManager.SEType.enGetItem);
+
             }
             // アイテムを削除
             Destroy(collision.gameObject);

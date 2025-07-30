@@ -10,6 +10,7 @@ public class PlayerGameClearState : PlayerStateBase
         SetComponents();
         // “ü—Í‚ðŽó‚¯•t‚¯‚È‚¢‚æ‚¤‚É‚·‚é
         m_player.SetIsInputRock(true);
+        AudioManager.Instance.PlaySE(AudioManager.SEType.enGameClear);
     }
 
     public override void Update()
