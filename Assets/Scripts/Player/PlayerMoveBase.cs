@@ -70,8 +70,11 @@ public class PlayerMoveBase : MonoBehaviour
         //引っ張った後に止まったかどうかをチェックする。
         if (m_hasPulled)
         {
-            m_hasPulled = false; //フラグをリセット。
-            if (GetIsStop()) return true;
+            if (GetIsStop())
+            {
+                m_hasPulled = false; //フラグをリセット。
+                return true;
+            }
         }
             return false;
     }
@@ -112,12 +115,18 @@ public class PlayerMoveBase : MonoBehaviour
         //引っ張って放したら、呼ばれるイベントに関数を追加。
         m_mouseInput.OnDragEnded += () => {
             //ロックがかかっていないとき、マウスのドラッグが終わったら、ロックをかける。
-            if (!m_mouseInput.IsFlickLock()|| !m_touchInput.IsFlickLock()) m_hasPulled = true;
+            if (!m_mouseInput.IsDragging() || !m_touchInput.IsFlickLock())
+            {
+                m_hasPulled = true;
+            }
         };
         m_touchInput.OnDragEnded += () =>
         {
             //ロックがかかっていないとき、タッチのドラッグが終わったら、ロックをかける。
-            if (!m_mouseInput.IsFlickLock() || !m_touchInput.IsFlickLock()) m_hasPulled = true;
+            if (!m_mouseInput.IsDragging() || !m_touchInput.IsFlickLock())
+            {
+                m_hasPulled = true;
+            }
         };
 
         m_rigidBody.freezeRotation = true;
