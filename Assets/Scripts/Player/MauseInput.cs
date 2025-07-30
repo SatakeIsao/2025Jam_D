@@ -192,6 +192,10 @@ public class MauseInput : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// ドラッグの角度を計算するメソッド。
+    /// </summary>
+    /// <returns></returns>
     public float CalculateDragAngle()
     {
         float angle = Mathf.Atan2(GetSwipeDirection().y, GetSwipeDirection().x) * Mathf.Rad2Deg;
