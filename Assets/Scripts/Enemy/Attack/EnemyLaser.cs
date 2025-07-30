@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyLaser : MonoBehaviour
 {
     EnemyStatus m_enemyStatus;
+    HPManager m_HPManager;
 
     //ダメージ量
     [SerializeField] private int m_damage = 0;
@@ -16,20 +17,20 @@ public class EnemyLaser : MonoBehaviour
     private GameObject[] m_players = new GameObject[4];
     //現在の最寄りのプレイヤーまでの距離
     private Vector2 m_toNearestPlayerDis = Vector2.zero;
-    //最寄りのプレイヤー
-    private GameObject m_nearestPlayer = null;
     //レーザーの射出方向ベクトル
     private Vector2 m_toNearPlayerDir = Vector2.zero;
 
     private float laserLength = 20.0f;     // レーザーの長さ
     private float duration = 0.7f;       // レーザー表示時間
-    private LayerMask hitLayer;          // 当たり判定するレイヤー
+    private LayerMask wallMask;       // 壁レイヤー
+    private LayerMask enemyLayer;          // 当たり判定するレイヤー
 
     private LineRenderer line;
 
     void Start()
     {
         m_enemyStatus = GetComponent<EnemyStatus>();
+        m_HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();
 
         m_players = GameObject.FindGameObjectsWithTag("Player");
 
@@ -41,6 +42,9 @@ public class EnemyLaser : MonoBehaviour
         line.startColor = Color.red;
         line.endColor = Color.red;
         line.enabled = false;
+
+        //debug
+        //TurnCount();
     }
 
     
@@ -71,17 +75,35 @@ public class EnemyLaser : MonoBehaviour
         Vector2 startPos = transform.position;
         Vector2 endPos = startPos + m_toNearPlayerDir * laserLength;
 
-        // Raycast でヒットチェック
-        RaycastHit2D hit = Physics2D.Raycast(startPos, m_toNearPlayerDir, laserLength, hitLayer);
+        //壁とのヒットチェック
+        RaycastHit2D wallHit = Physics2D.Raycast(startPos, m_toNearPlayerDir, laserLength, wallMask);
+
+        if (wallHit.collider != null) // 壁に当たらなかった場合
+        {
+            GameObject wallObj = wallHit.collider.gameObject;
+            if (wallObj.tag == "Wall") // 壁に当たった場合
+            {
+                endPos = wallHit.point; // 壁で止まる
+            }
+        }
+
+        // プレイヤーとのヒットチェック
+        RaycastHit2D hit = Physics2D.Raycast(startPos, m_toNearPlayerDir, laserLength, enemyLayer);
         if (hit.collider != null)
         {
             GameObject hitObject = hit.collider.gameObject;
             if (hitObject.tag == "Player")
             {
-                //TODO プレイヤーにダメージ
-
+                // プレイヤーにダメージを与える
+                m_HPManager.Damage(m_damage);
             }
         }
+
+        
+       
+
+        // レーザーの終点を設定
+        line.SetPosition(1, endPos);
 
         // レーザーを表示
         StartCoroutine(ShowLaser(startPos, endPos));

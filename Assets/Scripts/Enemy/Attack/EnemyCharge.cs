@@ -18,9 +18,12 @@ public class EnemyCharge : MonoBehaviour
 {
     EnemyStatus enemyStatus;
     CircleCollider2D m_chargeAttackCollider;
+    HPManager m_HPManager;
+    private LayerMask playerLayer;   
+
 
     //ダメージ（毎フレーム）
-    [SerializeField] private float m_chargeDamage = 0.0f;
+    [SerializeField] private int m_chargeDamage = 0;
     //攻撃範囲
     [SerializeField] private float m_attackRange = 0.0f;
     //攻撃ターン数
@@ -82,6 +85,7 @@ public class EnemyCharge : MonoBehaviour
         enemyStatus = GetComponent<EnemyStatus>();
         //突進攻撃用のコライダーを追加
         gameObject.AddComponent<CircleCollider2D>();
+        m_HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();
         m_chargeAttackCollider = GetComponent<CircleCollider2D>();
         m_chargeAttackCollider.radius = m_attackRange;
 
@@ -105,6 +109,8 @@ public class EnemyCharge : MonoBehaviour
         {
             m_chargeAttackCollider.enabled = true;
 
+            DoCheckHit();
+
             return; //停止時間が経過していないので、突進しない
         }
 
@@ -117,6 +123,25 @@ public class EnemyCharge : MonoBehaviour
         else
         {
             TurnEnd();
+        }
+    }
+
+
+    private void DoCheckHit()
+    {
+        // コライダーの実際のワールド座標と半径を計算
+        Vector2 pos = (Vector2)m_chargeAttackCollider.transform.position + m_chargeAttackCollider.offset;
+        float radius = m_chargeAttackCollider.radius *
+                       Mathf.Max(m_chargeAttackCollider.transform.lossyScale.x,
+                                 m_chargeAttackCollider.transform.lossyScale.y);
+
+        // プレイヤーとの衝突チェック
+        Collider2D hit = Physics2D.OverlapCircle(pos, radius, playerLayer);
+
+        if (hit != null && hit.CompareTag("Player"))
+        {
+            // ダメージ処理
+            m_HPManager.Damage(m_chargeDamage);
         }
     }
 
