@@ -7,6 +7,7 @@ public class EnemyLaser : MonoBehaviour
     EnemyStatus m_enemyStatus;
     HPManager m_HPManager;
 
+    private bool m_isInAction = false; //レーザー攻撃中かどうか
     //ダメージ量
     [SerializeField] private int m_damage = 0;
     //攻撃までのターン数
@@ -26,6 +27,8 @@ public class EnemyLaser : MonoBehaviour
     private LayerMask enemyLayer;          // 当たり判定するレイヤー
 
     private LineRenderer line;
+
+    public bool GetIsInAction() { return m_isInAction; } //レーザー攻撃中かどうかを取得
 
     void Start()
     {
@@ -66,6 +69,7 @@ public class EnemyLaser : MonoBehaviour
             CalcLaserVec();
             Fire(); // レーザーを発射
             m_currentTurn = m_attackTurn; // ターン数をリセット
+            m_isInAction= true; // レーザー攻撃中に設定
         }
     }
 
@@ -116,6 +120,7 @@ public class EnemyLaser : MonoBehaviour
         line.SetPosition(1, end);
         yield return new WaitForSeconds(duration);
         line.enabled = false;
+        m_isInAction = false; // レーザー攻撃終了
     }
 
     /// <summary>

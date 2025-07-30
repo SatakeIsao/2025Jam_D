@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyAttackControl : MonoBehaviour
 {
     EnemyCharge m_enemyCharge;
+    EnemyLaser m_enemyLaser;
 
     //敵が行動してもよいか
     private bool m_isCanAction = false;
@@ -22,6 +23,7 @@ public class EnemyAttackControl : MonoBehaviour
     void Start()
     {
         m_enemyCharge = GetComponent<EnemyCharge>();
+        m_enemyLaser = GetComponent<EnemyLaser>();
     }
 
     // Update is called once per frame
@@ -30,6 +32,18 @@ public class EnemyAttackControl : MonoBehaviour
         if (!m_isCanAction)
         {
             return;
+        }
+
+        //レーザー
+        //突進攻撃
+        if (m_enemyLaser != null)
+        {
+            m_enemyLaser.TurnCount();
+
+            if (m_enemyLaser.GetIsInAction() == true)
+            {
+                return;
+            }
         }
 
         //突進攻撃
