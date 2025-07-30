@@ -84,9 +84,8 @@ public class EnemyCharge : MonoBehaviour
     {
         enemyStatus = GetComponent<EnemyStatus>();
         //突進攻撃用のコライダーを追加
-        gameObject.AddComponent<CircleCollider2D>();
-        m_HPManager = GameObject.Find("HPManager").GetComponent<HPManager>();
-        m_chargeAttackCollider = GetComponent<CircleCollider2D>();
+        m_HPManager = GameObject.Find("Canvas").GetComponent<HPManager>();
+        m_chargeAttackCollider = gameObject.AddComponent<CircleCollider2D>(); ;
         m_chargeAttackCollider.radius = m_attackRange;
 
         m_chargeTarget = EnChargeTarget.enToWayPoint; //突進の目標位置をウェイポイントへ設定
@@ -110,11 +109,12 @@ public class EnemyCharge : MonoBehaviour
             m_chargeAttackCollider.enabled = true;
 
             DoCheckHit();
+            m_chargeAttackCollider.enabled = false;
+
 
             return; //停止時間が経過していないので、突進しない
         }
 
-        m_chargeAttackCollider.enabled = false;
 
         if (m_restMoveNum > 0)
         {
