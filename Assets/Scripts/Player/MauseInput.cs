@@ -60,6 +60,12 @@ public class MauseInput : MonoBehaviour
             OnArrowRotationUpdated?.Invoke(CalculateDragAngle());
             OnArrowLengthUpdated?.Invoke(GetSwipeDistance());
         }
+
+
+        if (m_isFlickLock)
+        {
+            Debug.Log("ÉçÉbÉNÇ≥ÇÍÇƒÇ¢Ç‹Ç∑ " + gameObject.name);
+        }
     }
 
     public bool IsDragging()
