@@ -78,10 +78,10 @@ public class TurnManager : MonoBehaviour
             StartCoroutine(turnText_.DisplayText("PlayerTurn"));
             players_[playerTurnCount_].ChangeState(PlayerState.enLocalPlayerTurn);
             Debug.Log("プレイヤーのターン: " + playerTurnCount_);
-            yield return new WaitUntil(() => 
+            yield return new WaitUntil(() =>
             {
                 bool isPull = false;
-                foreach(var playerMove in playerMoves_)
+                foreach (var playerMove in playerMoves_)
                 {
                     if (playerMove.HasStoppedAfterPull())
                     {
@@ -122,21 +122,37 @@ public class TurnManager : MonoBehaviour
 
                 foreach (var enemy in enemies_)
                 {
-                    //enemy.ResetEnemyAction(); // 敵の行動をリセット
+                    EnemyAttackControl m_enemyAttack = enemy.GetComponent<EnemyAttackControl>();
+                    m_enemyAttack.StartEnemyAction();
                 }
 
                 // 敵の行動を待つ
-                // yield return new WaitUntil(() => );
+                while (true)
+                {
+                    int actionEnemyNum = 0;
+                    foreach (var enemy in enemies_)
+                    {
+                        if (enemy.GetIsInAction())
+                        {
+                            actionEnemyNum++;
+                            break;
+                        }
+                    }
+                    if (actionEnemyNum == 0)
+                    {
+                        yield return null; // 1フレーム待つ                    }
+                    }
 
-                eneyTurnCount_ = MaxEnemyTurn;
+                    eneyTurnCount_ = MaxEnemyTurn;
+                }
+
+                // プレイヤーのHPチェック
+                if (playerHP_.m_isHpZero)
+                {
+                    yield break;
+                }
+
             }
-
-            // プレイヤーのHPチェック
-            if (playerHP_.m_isHpZero)
-            {
-                yield break;
-            }
-
         }
     }
 }

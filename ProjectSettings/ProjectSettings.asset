@@ -161,7 +161,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.Team_D.2025Jam_D
+    Android: com.team_d.monsterbound
     Standalone: com.DefaultCompany.2DProject
   buildNumber:
     Standalone: 0
