@@ -9,6 +9,16 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("UI", LoadSceneMode.Additive);
     }
+
+    public void OnclickStart()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void OnClickReStart()
+    {
+        SceneManager.LoadScene("Title");
+    }
     // Start is called before the first frame update
     void Start()
     {
