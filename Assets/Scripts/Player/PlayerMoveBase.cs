@@ -114,7 +114,7 @@ public class PlayerMoveBase : MonoBehaviour
             //ロックがかかっていないとき、マウスのドラッグが終わったら、ロックをかける。
             if (!m_mouseInput.IsFlickLock()|| !m_touchInput.IsFlickLock()) m_hasPulled = true;
         };
-        m_touchInput.OnDragEnded += () =>
+        m_touchInput.OnTouchiEnded += () =>
         {
             //ロックがかかっていないとき、タッチのドラッグが終わったら、ロックをかける。
             if (!m_mouseInput.IsFlickLock() || !m_touchInput.IsFlickLock()) m_hasPulled = true;

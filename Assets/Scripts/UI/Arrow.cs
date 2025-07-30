@@ -7,6 +7,7 @@ public class Arrow : MonoBehaviour
 {
     private GameObject arrow;
     private MauseInput m_mauseInput;
+    private TouchInput m_touchInput;
     private RectTransform m_arrowRectTransform;
 
     void Awake()
@@ -18,7 +19,25 @@ public class Arrow : MonoBehaviour
         }
        else
         {
+            Debug.Log("このスクリプトがアタッチされているオブジェクトの名前: " + this.gameObject.name);
+            if (this.transform.parent != null)
+            {
+                Debug.Log("親オブジェクトの名前: " + this.transform.parent.name);
+            }
+            else
+            {
+                Debug.Log("親オブジェクトは存在しません");
+            }
             Debug.LogError("MouseInput が見つかりませんでした");
+        }
+        if (transform.parent != null && transform.parent.parent != null)
+        {
+            Debug.Log("タッチインプットのコンポーネントを取得");
+            m_touchInput = transform.parent.parent.GetComponent<TouchInput>();
+        }
+        else
+        {
+            Debug.LogError("TouchInput が見つかりませんでした");
         }
         arrow = this.gameObject;
         m_arrowRectTransform = arrow.GetComponent<RectTransform>();
@@ -32,6 +51,12 @@ public class Arrow : MonoBehaviour
         m_mauseInput.OnDragEnded += () => toggleArrow(false); //ドラッグ終了時に矢印を非表示にする。
         m_mauseInput.OnArrowLengthUpdated += (scale) => SetLengthUpdated(scale*0.1f); //ドラッグ中の矢印のスケールを更新する。
         m_mauseInput.OnArrowRotationUpdated += (angle) => RotateArrow(angle); //ドラッグ中の矢印の角度を更新する。
+
+        m_touchInput.OnTouchiStarted += () => toggleArrow(true); //タッチ開始時に矢印を表示する。
+        m_touchInput.OnTouchiEnded += () => toggleArrow(false); //タッチ終了時に矢印を非表示にする。
+        m_touchInput.OnArrowLengthUpdated += (scale) => SetLengthUpdated(scale * 0.1f); //タッチ中の矢印のスケールを更新する。
+        m_touchInput.OnArrowRotationUpdated += (angle) => RotateArrow(angle); //タッチ中の矢印の角度を更新する。
+
         RotateArrow(11.0f);
     }
 

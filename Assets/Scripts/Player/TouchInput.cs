@@ -16,7 +16,10 @@ public class TouchInput : MonoBehaviour
     //ボールの移動をロックするかどうかのフラグ
     bool m_isFlickLock = false;
 
-    public event Action OnDragEnded;
+    public event Action OnTouchiEnded;
+    public event Action OnTouchiStarted;
+    public event Action<float> OnArrowLengthUpdated; //ドラッグ中のイベント
+    public event Action<float> OnArrowRotationUpdated; //ドラッグ中のイベント
 
     /// <summary>
     /// ボールのロックを設定するメソッド。
@@ -50,7 +53,16 @@ public class TouchInput : MonoBehaviour
 
         if (HasJustReleased())
         {
-            OnDragEnded?.Invoke();
+            OnTouchiEnded?.Invoke();
+        }
+        if (IsTouchingBegan())
+        {
+            OnTouchiStarted?.Invoke();
+        }
+        if (IsTouching())
+        {
+            OnArrowRotationUpdated?.Invoke(CalculateSwipeAngle());
+            OnArrowLengthUpdated?.Invoke(GetSwipeDistance());
         }
     }
     /// <summary>
@@ -65,6 +77,20 @@ public class TouchInput : MonoBehaviour
             return false;
         }
         return Input.touchCount > 0;
+    }
+
+    /// <summary>
+    /// タッチが始まった瞬間かどうかを判定するメソッド。
+    /// </summary>
+    /// <returns></returns>
+    bool IsTouchingBegan()
+    {
+        if (m_isFlickLock)
+        {
+            //ボールの移動がロックされている場合はタッチ中ではない。
+            return false;
+        }
+        return Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began;
     }
 
     /// <summary>
@@ -120,11 +146,8 @@ public class TouchInput : MonoBehaviour
             //スワイプの方向を計算。
             swipeDirectionVector = movetTouchPosition - beganTouchPosition;
 
-            //スワイプの方向を正規化。
-            swipeDirectionVector.Normalize();
-
-            //スワイプの方向を返す。
-            return swipeDirectionVector;
+            //正規化されたスワイプベクトルをかえす。。
+            return swipeDirectionVector.normalized;
         }
         else
         {     
@@ -149,11 +172,8 @@ public class TouchInput : MonoBehaviour
             //スワイプの方向を計算。
             swipeEndedDirectionVector = movetTouchPosition - beganTouchPosition;
 
-            //スワイプの方向を正規化。
-            swipeEndedDirectionVector.Normalize();
-
-            //スワイプの方向を返す。
-            return swipeEndedDirectionVector;
+            //正規化されたスワイプベクトルをかえす。
+            return swipeEndedDirectionVector.normalized;
         }
         else
         {
@@ -184,5 +204,15 @@ public class TouchInput : MonoBehaviour
             return 0.0f;
 
         }
+    }
+
+    /// <summary>
+    /// スワイプの角度を計算するメソッド。
+    /// </summary>
+    /// <returns></returns>
+    public float CalculateSwipeAngle()
+    {
+        float angle = Mathf.Atan2(GetSwipeDirection().y, GetSwipeDirection().x) * Mathf.Rad2Deg;
+        return angle;
     }
 }
