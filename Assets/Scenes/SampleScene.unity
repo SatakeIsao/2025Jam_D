@@ -974,6 +974,7 @@ GameObject:
   - component: {fileID: 318966799}
   - component: {fileID: 318966798}
   - component: {fileID: 318966797}
+  - component: {fileID: 318966802}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -1124,6 +1125,18 @@ Transform:
   - {fileID: 309276093}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &318966802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318966796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4216f1554f73f64eb263d935f353b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &322629865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,10 +1737,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 637908310}
-  - component: {fileID: 637908309}
-  - component: {fileID: 637908308}
-  - component: {fileID: 637908307}
-  - component: {fileID: 637908306}
+  - component: {fileID: 637908311}
   m_Layer: 0
   m_Name: TurnManager
   m_TagString: Untagged
@@ -1735,66 +1745,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &637908306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637908305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5595c53d77804e46b035c82722e38e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerMoveBase: {fileID: 2030662865}
-  EnemyTurnCount: 3
-  EnemyTurn: 0
-  enemyAttackTimer: 2
---- !u!114 &637908307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637908305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3696ebd17f8b5944ad07f8582986883, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TurnText: {fileID: 1741660488}
-  PlayerTurnTimer: 3
-  playerTurnFlag: 1
---- !u!114 &637908308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637908305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b438f203c92d4942884818b39416244, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &637908309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 637908305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b34b7df1c276a647ab71c04f619b2af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyTurnText: {fileID: 1018162136}
-  playerMoveBase: {fileID: 1579135756}
-  playerTurnTextScript: {fileID: 637908307}
-  turnCountScript: {fileID: 637908306}
-  enemyTurnTimer: 2
 --- !u!4 &637908310
 Transform:
   m_ObjectHideFlags: 0
@@ -1810,6 +1760,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &637908311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637908305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaf659a3e99529f479563618fb67d882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObjects_:
+  - {fileID: 1579135751}
+  - {fileID: 2030662861}
+  - {fileID: 1374105318}
+  - {fileID: 1112133689}
+  playerHP_: {fileID: 59677731}
+  enemies_:
+  - {fileID: 1527479384}
+  - {fileID: 318966802}
+  - {fileID: 1388877574}
+  turnText_: {fileID: 1741660490}
 --- !u!1 &657690150
 GameObject:
   m_ObjectHideFlags: 0
@@ -3832,6 +3805,7 @@ GameObject:
   - component: {fileID: 1388877571}
   - component: {fileID: 1388877570}
   - component: {fileID: 1388877569}
+  - component: {fileID: 1388877574}
   m_Layer: 0
   m_Name: Enemy (2)
   m_TagString: Enemy
@@ -3982,6 +3956,18 @@ Transform:
   - {fileID: 608291699}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1388877574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388877568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4216f1554f73f64eb263d935f353b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1467633091
 GameObject:
   m_ObjectHideFlags: 0
@@ -4070,6 +4056,7 @@ GameObject:
   - component: {fileID: 1527479381}
   - component: {fileID: 1527479380}
   - component: {fileID: 1527479379}
+  - component: {fileID: 1527479384}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -4220,6 +4207,18 @@ Transform:
   - {fileID: 1016313982}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1527479384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1527479378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4216f1554f73f64eb263d935f353b42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1579135751
 GameObject:
   m_ObjectHideFlags: 0
@@ -4838,6 +4837,7 @@ GameObject:
   - component: {fileID: 1741660487}
   - component: {fileID: 1741660489}
   - component: {fileID: 1741660488}
+  - component: {fileID: 1741660490}
   m_Layer: 5
   m_Name: PlayerTurnText
   m_TagString: Untagged
@@ -4961,6 +4961,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741660486}
   m_CullTransparentMesh: 1
+--- !u!114 &1741660490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741660486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e7f62c1345077d4a8071cb460b7879d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text_: {fileID: 0}
 --- !u!1 &1795047328
 GameObject:
   m_ObjectHideFlags: 0
